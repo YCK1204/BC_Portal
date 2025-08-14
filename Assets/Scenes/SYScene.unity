@@ -460,7 +460,7 @@ Transform:
   m_GameObject: {fileID: 725501615}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.055, y: -0.14034551, z: -2.957}
+  m_LocalPosition: {x: -0.073, y: 0.395, z: -2.912}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -487,8 +487,8 @@ MonoBehaviour:
   turretHead: {fileID: 1928668709}
   rotationSpeed: 270
   detectionSpeed: 5
-  detectionRange: 10
-  target: {fileID: 725501619}
+  detectionRange: 5
+  target: {fileID: 0}
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64

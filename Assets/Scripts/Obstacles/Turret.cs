@@ -20,6 +20,11 @@ public class Turret : ObstacleBase
         InvokeRepeating("FindTarget", 0, 0.5f);
     }
 
+    private void Update()
+    {
+        RotateTurret();
+    }
+
     private void FindTarget()
     {
         Collider[] targetCollders = Physics.OverlapSphere(transform.position, detectionRange, targetLayerMask);  // 터렛 주변 콜라이더 탐색
@@ -41,5 +46,20 @@ public class Turret : ObstacleBase
         }
 
         target = shortestTarget;
+    }
+
+    private void RotateTurret()
+    {
+        if (target == null) // 대기 상태에서 회전
+        {
+            turretHead.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
+        }
+        else // 타겟 감지 시 타겟을 향해 회전
+        {
+            Quaternion targetLookRotation = Quaternion.LookRotation(target.position);
+            Vector3 targetEuler = Quaternion.RotateTowards(turretHead.rotation, targetLookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
+
+            turretHead.rotation = Quaternion.Euler(targetEuler.x, targetEuler.y, 0);
+        }
     }
 }

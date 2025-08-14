@@ -15,6 +15,11 @@ public class Turret : ObstacleBase
     [SerializeField] private Transform target; // 타겟(플레이어)
     [SerializeField] private LayerMask targetLayerMask = 0; // Player 레이어
 
+    private void Start()
+    {
+        InvokeRepeating("FindTarget", 0, 0.5f);
+    }
+
     private void FindTarget()
     {
         Collider[] targetCollders = Physics.OverlapSphere(transform.position, detectionRange, targetLayerMask);  // 터렛 주변 콜라이더 탐색

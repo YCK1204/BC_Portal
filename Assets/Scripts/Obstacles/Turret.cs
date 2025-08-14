@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Turret : MonoBehaviour
+public class Turret : ObstacleBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Turret Settings")]
+    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float detectionSpeed = 5f;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

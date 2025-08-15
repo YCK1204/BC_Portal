@@ -15,6 +15,14 @@ public class Turret : ObstacleBase
     [SerializeField] private Transform target; // 타겟(플레이어)
     [SerializeField] private LayerMask targetLayerMask = 0; // Player 레이어
 
+    [SerializeField] private LaserPointer laserPointer; // 레이저 포인터
+
+    private void Awake()
+    {
+        if (laserPointer == null)
+            laserPointer = GetComponent<LaserPointer>();
+    }
+
     private void Start()
     {
         InvokeRepeating("FindTarget", 0, 0.5f);
@@ -46,6 +54,15 @@ public class Turret : ObstacleBase
         }
 
         target = shortestTarget;
+
+        if (laserPointer != null)
+        {
+            laserPointer.SetTarget(target);
+        }
+        else
+        {
+            laserPointer.ClearTarget();
+        }
     }
 
     private void RotateTurret()

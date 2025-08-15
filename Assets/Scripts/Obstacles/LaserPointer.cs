@@ -21,22 +21,22 @@ public class LaserPointer : MonoBehaviour
     {
         if(target != null)
         {
-            OnLazer(startPoint.position, target.position);
+            OnLaser(startPoint.position, target.position);
         }
         else
         {
-            OffLazer();
+            OffLaser();
         }        
     }
 
-    public void OnLazer(Vector3 from, Vector3 to) // 레이저 작동
+    public void OnLaser(Vector3 from, Vector3 to) // 레이저 작동
     {
         lineRenderer.enabled = true;
         lineRenderer.SetPosition(0, from);
         lineRenderer.SetPosition(1, to);
     }
 
-    public void OffLazer()
+    public void OffLaser()
     {
         lineRenderer.enabled = false;
     }

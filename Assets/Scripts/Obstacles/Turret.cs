@@ -67,9 +67,9 @@ public class Turret : ObstacleBase
         {
             Quaternion targetLookRotation = Quaternion.LookRotation(target.position);
             Vector3 targetEuler = Quaternion.RotateTowards(turretHead.rotation, targetLookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
-
             turretHead.rotation = Quaternion.Euler(targetEuler.x, targetEuler.y, 0);
 
+            // 타겟과 일정 각도 안에서 레이저 포인터 ON
             float angleToTarget = Quaternion.Angle(turretHead.rotation, targetLookRotation);
 
             if (angleToTarget < 5f)

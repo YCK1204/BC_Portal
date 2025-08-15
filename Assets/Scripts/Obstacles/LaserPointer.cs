@@ -25,8 +25,7 @@ public class LaserPointer : MonoBehaviour
         }
         else
         {
-            Vector3 endPoint = startPoint.position + startPoint.forward * laserLength;
-            OnLazer(startPoint.position, endPoint);
+            OffLazer();
         }        
     }
 
@@ -35,6 +34,11 @@ public class LaserPointer : MonoBehaviour
         lineRenderer.enabled = true;
         lineRenderer.SetPosition(0, from);
         lineRenderer.SetPosition(1, to);
+    }
+
+    public void OffLazer()
+    {
+        lineRenderer.enabled = false;
     }
 
 

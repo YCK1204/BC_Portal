@@ -54,15 +54,6 @@ public class Turret : ObstacleBase
         }
 
         target = shortestTarget;
-
-        if (laserPointer != null)
-        {
-            laserPointer.SetTarget(target);
-        }
-        else
-        {
-            laserPointer.ClearTarget();
-        }
     }
 
     private void RotateTurret()
@@ -70,6 +61,7 @@ public class Turret : ObstacleBase
         if (target == null) // 대기 상태에서 회전
         {
             turretHead.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
+            laserPointer.ClearTarget();
         }
         else // 타겟 감지 시 타겟을 향해 회전
         {
@@ -77,6 +69,17 @@ public class Turret : ObstacleBase
             Vector3 targetEuler = Quaternion.RotateTowards(turretHead.rotation, targetLookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
 
             turretHead.rotation = Quaternion.Euler(targetEuler.x, targetEuler.y, 0);
+
+            float angleToTarget = Quaternion.Angle(turretHead.rotation, targetLookRotation);
+
+            if (angleToTarget < 5f)
+            {
+                laserPointer.SetTarget(target);
+            }
+            else
+            {
+                laserPointer.ClearTarget();
+            }
         }
     }
 }

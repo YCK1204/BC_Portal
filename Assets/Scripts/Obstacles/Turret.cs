@@ -15,6 +15,13 @@ public class Turret : ObstacleBase
     [SerializeField] private Transform target; // 타겟(플레이어)
     [SerializeField] private LayerMask targetLayerMask = 0; // Player 레이어
 
+    [Header("Turret Fire Settings")]
+    [SerializeField] private GameObject laserPrefab; // 레이저 투사체 프리팹
+    [SerializeField] private Transform firePoint; // 레이저 발사 위치
+    [SerializeField] private float fireCooldown = 1f; // 레이저 발사 주기
+
+    private float lastFireTime = 0f;
+
     [SerializeField] private LaserPointer laserPointer; // 레이저 포인터
 
     private void Awake()
@@ -75,6 +82,7 @@ public class Turret : ObstacleBase
             if (angleToTarget < 5f)
             {
                 laserPointer.SetTarget(target);
+                Fire();
             }
             else
             {
@@ -82,4 +90,23 @@ public class Turret : ObstacleBase
             }
         }
     }
+
+    public void Fire()
+    {
+        if (target == null || Time.time < lastFireTime + fireCooldown) return;
+
+        Vector3 direction = (target.position - firePoint.position).normalized; // 발사 방향
+        Quaternion rotation = Quaternion.LookRotation(direction);
+        rotation *= Quaternion.Euler(90f,0,0); // 발사각도
+
+        GameObject laser = Instantiate(laserPrefab, firePoint.position, rotation);
+        LaserProjectile projectile = laser.GetComponent<LaserProjectile>();
+        if (projectile != null)
+        {
+            projectile.Init(direction);
+        }
+
+        lastFireTime = Time.time;
+    }
+
 }

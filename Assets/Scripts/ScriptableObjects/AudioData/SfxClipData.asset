@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df08cd8eab08b004ba8daac4bf079608, type: 3}
+  m_Name: SfxClipData
+  m_EditorClassIdentifier: 
+  sfxClips:
+  - key: rumble
+    clip: {fileID: 8300000, guid: e11a3f731847f0448845ec6c60b679ba, type: 3}
+  - key: enginestart
+    clip: {fileID: 8300000, guid: ec5ec348a6635df45b23a70c45d3ae7a, type: 3}
+  - key: Fan
+    clip: {fileID: 8300000, guid: bea37e2f1d9209440aac9a3d03a16787, type: 3}
+  - key: footsetp
+    clip: {fileID: 8300000, guid: 263f8aaa01d5d0041b082b7b69d9ca02, type: 3}
+  - key: pressure1
+    clip: {fileID: 8300000, guid: 10dbe0d3efc047c49ade2a16910ba3d5, type: 3}
+  - key: pressure2
+    clip: {fileID: 8300000, guid: 6429ef6fc932abf48bd557105f587cfb, type: 3}
+  - key: siren
+    clip: {fileID: 8300000, guid: eecbbe738858027488ed9a7a0c2a5df1, type: 3}
+  - key: wompwomp
+    clip: {fileID: 8300000, guid: fae646e294e83b8429734823243ff0c9, type: 3}

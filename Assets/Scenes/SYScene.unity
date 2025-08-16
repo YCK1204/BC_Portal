@@ -514,11 +514,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 930f9d93ddf487b4185a8f893bd4a096, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 1d8ffbb70dc716646abe11dba492a567, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -613,8 +613,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 930f9d93ddf487b4185a8f893bd4a096, type: 2}
-  bgmList: []
-  bgmChannels: 0
+  bgmList:
+  - {fileID: 8300000, guid: 2de937b859f59354db74282032b23fa9, type: 3}
+  - {fileID: 8300000, guid: 1d8ffbb70dc716646abe11dba492a567, type: 3}
+  bgmChannels: 1
   bgmVolume: 0
   sfxList: []
   sfxChannels: 0
@@ -628,7 +630,7 @@ Transform:
   m_GameObject: {fileID: 1407923609}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.4975977, y: 0.7102678, z: 5.328965}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

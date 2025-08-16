@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IObstacle 
 {
-    void Activate(); // Àå¾Ö¹° È°¼ºÈ­
-    void Deactivate(); // Àå¾Ö¹° ºñÈ°¼ºÈ­
+    void Activate(); // ìž¥ì• ë¬¼ í™œì„±í™”
+    void Deactivate(); // ìž¥ì• ë¬¼ ë¹„í™œì„±í™”
 }

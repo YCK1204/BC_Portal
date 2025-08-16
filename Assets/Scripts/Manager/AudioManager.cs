@@ -1,36 +1,65 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class AudioManager : Singleton<AudioManager>
 {
-    // list -> dictionary로 리팩토링 예정
-    [Header("VolumeControl")]
+    [Header("Volume Control")]
     [SerializeField] private AudioMixer mixer;
     private Slider bgmSlider;
     private Slider sfxSlider;
 
-    [Header("BGM Settings")]
-    [SerializeField] private AudioClip[] bgmList;
-    private AudioSource[] bgmPlayers;
-    public int bgmChannels;
-    public float bgmVolume;
-    private int bgmChannelIndex;
+    [Header("Channel settings")]
+    [SerializeField] private int bgmChannels = 2;
+    [SerializeField] private int sfxChannels = 10;
+    private int bgmChannelIndex = 0;
+    private int sfxChannelIndex = 0;
 
-    [Header("SFX Settings")]
-    [SerializeField] private AudioClip[] sfxList;
+    [Header("Audio Sources")]
+    private AudioSource[] bgmPlayers;
     private AudioSource[] sfxPlayers;
-    public int sfxChannels;
-    public float sfxVolume;
-    private int sfxChannelIndex;
+
+    private Dictionary<string,AudioClip> bgmClips = new Dictionary<string,AudioClip>(); // bgm 저장
+    private Dictionary<string,AudioClip> sfxClips = new Dictionary<string,AudioClip>(); // sfx 저장
+
+    [System.Serializable]
+    public struct NamedAudioClip
+    {
+        public string name; // 사운드 이름
+        public AudioClip clip; // 오디오 클립
+    }
+
+    public NamedAudioClip[] bgmClipList; // bgm 리스트
+    public NamedAudioClip[] sfxClipList; // sfx 리스트
 
     protected override void Initialize()
     {
-        bgmPlayers = CreateAudioPlayers("BgmPlayer", "BGM", bgmVolume, bgmChannels);
-        sfxPlayers = CreateAudioPlayers("SfxPlayer", "SFX", sfxVolume, sfxChannels);
+        bgmPlayers = CreateAudioPlayers("BgmPlayer", "BGM", bgmChannels);
+        sfxPlayers = CreateAudioPlayers("SfxPlayer", "SFX", sfxChannels);
+        InitializeAudioClips();
     }
 
-    private AudioSource[] CreateAudioPlayers(string objectName, string mixerGroupName, float _volume, int channelCount)
+    private void InitializeAudioClips()
+    {
+        foreach(var bgm in bgmClipList)
+        {
+            if(!bgmClips.ContainsKey(bgm.name))
+            {
+                bgmClips.Add(bgm.name, bgm.clip); //bgm 이름과 클립 저장
+            }
+        }
+
+        foreach(var sfx in sfxClipList)
+        {
+            if(!sfxClips.ContainsKey(sfx.name))
+            {
+                sfxClips.Add(sfx.name, sfx.clip); // sfx 이름과 클립 저장
+            }
+        }
+    }
+
+    private AudioSource[] CreateAudioPlayers(string objectName, string mixerGroupName, int channelCount)
     {
         GameObject _audioObject = new GameObject(objectName);
         _audioObject.transform.parent = transform;
@@ -42,7 +71,7 @@ public class AudioManager : Singleton<AudioManager>
         {
             _players[i] = _audioObject.AddComponent<AudioSource>();
             _players[i].playOnAwake = false;
-            _players[i].volume = _volume;
+            _players[i].loop = false;
             _players[i].outputAudioMixerGroup = _mixerGroup;
         }
 
@@ -72,19 +101,50 @@ public class AudioManager : Singleton<AudioManager>
     {
         mixer.SetFloat(key, Mathf.Log10(val) * 20);
         PlayerPrefs.SetFloat(key, val);
-
-        // Volume 변수 동기화
-        if (key == "BGMVolume") bgmVolume = val;
-        else if (key == "SFXVolume") sfxVolume = val;
     }
 
-    public void PlaySFX()
+    public void PlaySFX(string name)
     {
-        // 재생 관련 내용 추가 예정
+        if(sfxClips.ContainsKey(name))
+        {
+            AudioClip clip = sfxClips[name];
+            AudioSource player = sfxPlayers[sfxChannelIndex];
+
+            player.PlayOneShot(clip);
+
+            sfxChannelIndex = (sfxChannelIndex + 1) % sfxPlayers.Length;
+        }
     }
 
-    public void PlayBGM()
+    public void PlayBGM(string name)
     {
-        // 재생 관련 내용 추가 예정
+        if (bgmClips.ContainsKey(name))
+        {
+            AudioClip clip = bgmClips[name];
+            AudioSource player = bgmPlayers[bgmChannelIndex];
+
+            player.clip = clip;
+            player.loop = true;
+            player.Play();
+
+            bgmChannelIndex = (bgmChannelIndex + 1) % bgmPlayers.Length;
+        }
     }
+
+    public void StopAllBgm()
+    {
+        foreach (var player in bgmPlayers)
+        {
+            player.Stop();
+        }
+    }
+
+    public void StopAllSfx()
+    {
+        foreach (var player in sfxPlayers)
+        {
+            player.Stop();
+        }
+    }
+
 }

@@ -19,8 +19,15 @@ public class FloorSwitchController : BaseGimmickController
     BaseGimmickController[] linkedGimmicks;
     [SerializeField]
     List<string> TargetLayers;
+    [SerializeField]
+    string AnimControllerParamName;
 
     Coroutine _coOnOffSwitch = null;
+    Animator _animator;
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,7 +37,7 @@ public class FloorSwitchController : BaseGimmickController
             find = true;
         else
             find = (TargetLayers.Where(p => other.gameObject.layer == LayerMask.NameToLayer(p)).Count() > 0);
-
+        
         if (find)
             Enter();
     }
@@ -49,24 +56,26 @@ public class FloorSwitchController : BaseGimmickController
     public override void Enter()
     {
         base.Enter();
+        _animator.SetBool(AnimControllerParamName, true);
         if (_coOnOffSwitch != null)
             StopCoroutine(_coOnOffSwitch);
         if (UseScaleInsteadOfPosition)
-            _coOnOffSwitch = StartCoroutine(CoChangeByPosition(OnSwitchSize));
-        else
             _coOnOffSwitch = StartCoroutine(CoChangeByScale(OnSwitchSize));
+        else
+            _coOnOffSwitch = StartCoroutine(CoChangeByPosition(OnSwitchSize));
         foreach (var gimmick in linkedGimmicks)
             gimmick.Enter();
     }
     public override void Exit()
     {
         base.Exit();
+        _animator.SetBool(AnimControllerParamName, false);
         if (_coOnOffSwitch != null)
             StopCoroutine(_coOnOffSwitch);
         if (UseScaleInsteadOfPosition)
-            _coOnOffSwitch = StartCoroutine(CoChangeByPosition(OffSwitchSize));
-        else
             _coOnOffSwitch = StartCoroutine(CoChangeByScale(OffSwitchSize));
+        else
+            _coOnOffSwitch = StartCoroutine(CoChangeByPosition(OffSwitchSize));
         foreach (var gimmick in linkedGimmicks)
             gimmick.Exit();
     }

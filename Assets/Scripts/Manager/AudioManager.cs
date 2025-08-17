@@ -20,8 +20,8 @@ public class AudioManager : Singleton<AudioManager>
     private AudioSource[] bgmPlayers;
     private AudioSource[] sfxPlayers;
 
-    private Dictionary<string,AudioClip> bgmClips = new Dictionary<string,AudioClip>(); // bgm 저장
-    private Dictionary<string,AudioClip> sfxClips = new Dictionary<string,AudioClip>(); // sfx 저장
+    private Dictionary<string,AudioClip> bgmClips = new Dictionary<string,AudioClip>(); // _bgm 저장
+    private Dictionary<string,AudioClip> sfxClips = new Dictionary<string,AudioClip>(); // _sfx 저장
 
     [System.Serializable]
     public struct NamedAudioClip
@@ -30,8 +30,8 @@ public class AudioManager : Singleton<AudioManager>
         public AudioClip clip; // 오디오 클립
     }
 
-    public NamedAudioClip[] bgmClipList; // bgm 리스트
-    public NamedAudioClip[] sfxClipList; // sfx 리스트
+    public NamedAudioClip[] bgmClipList; // _bgm 리스트
+    public NamedAudioClip[] sfxClipList; // _sfx 리스트
 
     protected override void Initialize()
     {
@@ -42,11 +42,11 @@ public class AudioManager : Singleton<AudioManager>
 
     private void InitializeAudioClips()
     {
-        foreach(var bgm in bgmClipList)
+        foreach(var _bgm in bgmClipList)
         {
-            if(!bgmClips.ContainsKey(bgm.name))
+            if(!bgmClips.ContainsKey(_bgm.name))
             {
-                bgmClips.Add(bgm.name, bgm.clip); //bgm 이름과 클립 저장
+                bgmClips.Add(_bgm.name, _bgm.clip); //_bgm 이름과 클립 저장
             }
         }
 
@@ -120,30 +120,59 @@ public class AudioManager : Singleton<AudioManager>
     {
         if (bgmClips.ContainsKey(name))
         {
-            AudioClip clip = bgmClips[name];
-            AudioSource player = bgmPlayers[bgmChannelIndex];
+            AudioClip _clip = bgmClips[name];
+            AudioSource _player = bgmPlayers[bgmChannelIndex];
 
-            player.clip = clip;
-            player.loop = true;
-            player.Play();
+            _player.clip = _clip;
+            _player.loop = true;
+            _player.Play();
 
             bgmChannelIndex = (bgmChannelIndex + 1) % bgmPlayers.Length;
         }
     }
 
+    public void StopBgm(string name)
+    {
+        if(!bgmClips.ContainsKey(name)) return;
+
+        AudioClip _clip = bgmClips[name];
+
+        foreach (var _player in bgmPlayers)
+        {
+            if (_player.isPlaying && _player.clip == _clip)
+            {
+                _player.Stop();
+            }
+        }
+    }
+    public void StopSfx(string name)
+    {
+        if(!sfxClips.ContainsKey(name)) return;
+
+        AudioClip _clip = bgmClips[name];
+
+        foreach (var _player in bgmPlayers)
+        {
+            if (_player.isPlaying && _player.clip == _clip)
+            {
+                _player.Stop();
+            }
+        }
+    }
+
     public void StopAllBgm()
     {
-        foreach (var player in bgmPlayers)
+        foreach (var _player in bgmPlayers)
         {
-            player.Stop();
+            _player.Stop();
         }
     }
 
     public void StopAllSfx()
     {
-        foreach (var player in sfxPlayers)
+        foreach (var _player in sfxPlayers)
         {
-            player.Stop();
+            _player.Stop();
         }
     }
 

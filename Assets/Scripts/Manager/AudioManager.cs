@@ -50,11 +50,11 @@ public class AudioManager : Singleton<AudioManager>
             }
         }
 
-        foreach(var sfx in sfxClipList)
+        foreach(var _sfx in sfxClipList)
         {
-            if(!sfxClips.ContainsKey(sfx.name))
+            if(!sfxClips.ContainsKey(_sfx.name))
             {
-                sfxClips.Add(sfx.name, sfx.clip); // sfx 이름과 클립 저장
+                sfxClips.Add(_sfx.name, _sfx.clip); // _sfx 이름과 클립 저장
             }
         }
     }
@@ -107,10 +107,10 @@ public class AudioManager : Singleton<AudioManager>
     {
         if(sfxClips.ContainsKey(name))
         {
-            AudioClip clip = sfxClips[name];
-            AudioSource player = sfxPlayers[sfxChannelIndex];
+            AudioClip _clip = sfxClips[name];
+            AudioSource _player = sfxPlayers[sfxChannelIndex];
 
-            player.PlayOneShot(clip);
+            _player.PlayOneShot(_clip);
 
             sfxChannelIndex = (sfxChannelIndex + 1) % sfxPlayers.Length;
         }

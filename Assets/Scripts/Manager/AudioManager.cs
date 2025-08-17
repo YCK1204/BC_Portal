@@ -64,18 +64,18 @@ public class AudioManager : Singleton<AudioManager>
         GameObject _audioObject = new GameObject(objectName);
         _audioObject.transform.parent = transform;
 
-        AudioSource[] _players = new AudioSource[channelCount];
+        AudioSource[] _audioSources = new AudioSource[channelCount];
         AudioMixerGroup _mixerGroup = mixer.FindMatchingGroups(mixerGroupName)[0];
 
         for (int i = 0; i < channelCount; i++)
         {
-            _players[i] = _audioObject.AddComponent<AudioSource>();
-            _players[i].playOnAwake = false;
-            _players[i].loop = false;
-            _players[i].outputAudioMixerGroup = _mixerGroup;
+            _audioSources[i] = _audioObject.AddComponent<AudioSource>();
+            _audioSources[i].playOnAwake = false;
+            _audioSources[i].loop = false;
+            _audioSources[i].outputAudioMixerGroup = _mixerGroup;
         }
 
-        return _players;
+        return _audioSources;
     }
 
     public void AudioSliders(Slider bgm, Slider sfx) // 볼륨 조절 슬라이더

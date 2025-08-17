@@ -2,8 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveData : MonoBehaviour
+
+[System.Serializable]
+public class SaveData
 {
-    // ÀúÀåÇÒ µ¥ÀÌÅÍ ¸ñ·Ï
-    // 1. ½ºÅ×ÀÌÁö Å¬¸®¾î ¸ñ·Ï, Dictionary·Î ½ºÅ×ÀÌÁö ³Ñ¹ö¿Í 
+    // ì €ì¥í•  ë°ì´í„° ëª©ë¡
+
+    // ======= ìŠ¤í…Œì´ì§€ ì •ë³´ =======
+    // í´ë¦¬ì–´í•œ ëª¨ë“  ìŠ¤í…Œì´ì§€ ëª©ë¡   
+    public List<int> clearedStages;
+    // ë§ˆì§€ë§‰ìœ¼ë¡œ í´ë¦¬ì–´í•œ ìŠ¤í…Œì´ì§€ ì¸ë±ìŠ¤
+    public int lastClearStageIndex;
+
+    // ======= í”Œë ˆì´ì–´ ì •ë³´ =======
+    public Vector3 playerRotation; //JsonUtilityëŠ” Qauternionì„ ì €ì¥í•˜ì§€ ëª»í•´ì„œ transform.eulerAnglesì„ ì €ì¥í•´ì•¼ í•©ë‹ˆë‹¤.
+    public Vector3 playerPosition;
+
+    // ======= ì¶”ê°€ =======
+
+
+    // ìƒˆ ê²Œì„ ì‹œì‘ ì‹œ ìƒì„±ì
+    public SaveData()
+    {
+        this.clearedStages = new List<int>();
+        this.lastClearStageIndex = 0;
+
+        this.playerRotation = Vector3.zero;
+        this.playerPosition = Vector3.zero;
+    }
 }

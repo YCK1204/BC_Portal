@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 33610267079099544}
   - component: {fileID: 23227395604240536}
   - component: {fileID: 3204521089345378106}
+  - component: {fileID: 4993132688394796359}
+  - component: {fileID: 1428264787601636376}
   m_Layer: 0
   m_Name: GlassTank
   m_TagString: Untagged
@@ -29,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 2, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5636300083944713280}
@@ -107,6 +109,48 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4993132688394796359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589909508595142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858b5ae1c34a1bb4283f30361a0ea415, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  From: {x: 3, y: 2, z: 3}
+  To: {x: 3, y: 2, z: 3}
+  Speed: 1
+  AutoSetFrom: 0
+  linkedGimmicks:
+  - {fileID: 0}
+  TargetLayers:
+  - SwitchBox
+  AnimControllerParamName: On
+--- !u!65 &1428264787601636376
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589909508595142}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.5, y: 0, z: 0.5}
+  m_Center: {x: 0, y: 0.15, z: 0}
 --- !u!1 &1874928956802572
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,6 +161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4601939191812328}
   - component: {fileID: 64550876165246560}
+  - component: {fileID: 5961447062565624849}
   m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
@@ -161,6 +206,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 833b3db2968b5e64a90ccfc62174651e, type: 3}
+--- !u!65 &5961447062565624849
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874928956802572}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 0.45, y: 0.03637121, z: 0.47}
+  m_Center: {x: 0, y: 0.035, z: 0}
 --- !u!1 &5918933272355703613
 GameObject:
   m_ObjectHideFlags: 0

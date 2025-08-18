@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
     [Header("UI")]
     public Animator MenuAnimator;
@@ -37,5 +37,15 @@ public class UIManager : MonoBehaviour
             MenuAnimator.SetTrigger("Close");
             Time.timeScale = 1f;
         }
+    }
+
+    public void OnCancel()
+    {
+        isMenuOpen = !isMenuOpen;
+
+        AudioManager.Instance.PlaySFX("Button");
+        Debug.Log("OFF");
+        MenuAnimator.SetTrigger("Close");
+        Time.timeScale = 1f;
     }
 }

@@ -9,9 +9,9 @@ public class Turret : ObstacleBase
     [SerializeField] private Transform turretHead; // 본체
 
     [Header("Turret Settings")]
-    [SerializeField] private float rotationSpeed = 5f; // 터렛 회전 속도
-    //[SerializeField] private float detectionSpeed = 5f; // 터렛 감지 속도 - 안쓸 경우 삭제
-    [SerializeField] private float detectionRange = 0f; // 터렛 감지 거리
+    [SerializeField] private float rotationSpeed; // 터렛 회전 속도
+    [SerializeField] private float idleRotationSpeed; // 터렛 감지 속도 - 안쓸 경우 삭제
+    [SerializeField] private float detectionRange; // 터렛 감지 거리
     [SerializeField] private Transform target; // 타겟(플레이어)
     [SerializeField] private LayerMask targetLayerMask = 0; // Player 레이어
 
@@ -79,17 +79,19 @@ public class Turret : ObstacleBase
     {
         if (target == null) // 대기 상태에서 회전
         {
-            turretHead.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
+            Quaternion _idleTargetRotation = turretHead.rotation * Quaternion.Euler(0, 1f, 0);
+            turretHead.rotation = Quaternion.RotateTowards(turretHead.rotation, _idleTargetRotation, idleRotationSpeed * Time.deltaTime);
             laserPointer.ClearTarget();
         }
         else // 타겟 감지 시 타겟을 향해 회전
         {
-            Quaternion _targetLookRotation = Quaternion.LookRotation(target.position);
-            Vector3 _targetEuler = Quaternion.RotateTowards(turretHead.rotation, _targetLookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
-            turretHead.rotation = Quaternion.Euler(_targetEuler.x, _targetEuler.y, 0);
+            Vector3 _direction = target.position - turretHead.position; // 타겟 방향
+
+            Quaternion _targetRotation = Quaternion.LookRotation(_direction);
+            turretHead.rotation = Quaternion.RotateTowards(turretHead.rotation, _targetRotation, rotationSpeed * Time.deltaTime);
 
             // 타겟과 일정 각도 안에서 레이저 포인터 ON
-            float _angleToTarget = Quaternion.Angle(turretHead.rotation, _targetLookRotation);
+            float _angleToTarget = Quaternion.Angle(turretHead.rotation, _targetRotation);
 
             if (_angleToTarget < 5f)
             {

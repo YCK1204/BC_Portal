@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ScifiBox
   m_EditorClassIdentifier: 
   displayName: Cube
-  description: "\uBE5B\uC774 \uB098\uB294 \uD050\uBE0C\uB2E4."
+  description: It can make electornic
   type: 0
-  dropPrefab: {fileID: 0}
+  dropPrefab: {fileID: 1231668379462494, guid: 10fe2af0159f56e4395fa21beb64e559, type: 3}
+  equipPrefab: {fileID: 4447150086842981313, guid: a4ee6e0b6ebc56d4fbbbf1cdb1e16f28, type: 3}

@@ -16,11 +16,14 @@ public class Interaction : MonoBehaviour
 
     public TextMeshProUGUI promptText;
     private Camera camera;
+    private Player player;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         camera = Camera.main;
+        player = PlayerManager.Instance.Player;
     }
 
     // Update is called once per frame
@@ -35,7 +38,7 @@ public class Interaction : MonoBehaviour
             {
                 curInteractGameObject = hit.collider.gameObject;
                 curInteractable = hit.collider.GetComponent<IInteractable>();
-                //출력해줘라.
+                promptText.gameObject.SetActive(false);
             }
         }
         else
@@ -60,6 +63,19 @@ public class Interaction : MonoBehaviour
             curInteractGameObject = null;
             curInteractable = null;
             promptText.gameObject.SetActive(false);
+        }
+        else
+        {
+            if(player == null) player = GetComponent<Player>();
+            if (player == null)
+            {
+                Debug.Log("[Interaction] Player not found; drop aborted.");
+                return;
+            }
+            if (player != null && player.HasItem)
+            {
+                player.DropNowItem();
+            }
         }
     }
 }

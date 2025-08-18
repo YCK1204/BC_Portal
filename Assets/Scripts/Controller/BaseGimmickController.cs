@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseGimmickController : MonoBehaviour
+public abstract class BaseGimmickController : MonoBehaviour
 {
-    protected bool _isChild = false;
-    void Start() { _isChild = transform.parent != null; Init(); }
-    protected virtual void Init() { }
-    public virtual void Enter() { }
-    public virtual void Exit() { }
+    protected bool IsChild { get { return transform.parent != null; } }
+    void Start() { Init(); }
+    protected abstract void Init();
+    public abstract void Enter();
+    public abstract void Exit();
 }

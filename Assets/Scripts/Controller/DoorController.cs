@@ -23,8 +23,6 @@ public class DoorController : BaseGimmickController
     Coroutine _coOpenClose = null;
     protected override void Init()
     {
-        base.Init();
-
         if (RotateOnOpen)
             Speed *= 10f;
 
@@ -41,7 +39,7 @@ public class DoorController : BaseGimmickController
         Quaternion quaternion = (AutoOpen) ? Quaternion.Euler(_Open.x, _Open.y, _Open.z) 
                                             : Quaternion.Euler(_Close.x, _Close.y, _Close.z);
 
-        if (_isChild)
+        if (IsChild)
             transform.localRotation = quaternion;
         else
             transform.rotation = quaternion;
@@ -49,7 +47,7 @@ public class DoorController : BaseGimmickController
     void PositionInit()
     {
         Vector3 position = (AutoOpen) ? _Open : _Close;
-        if (_isChild)
+        if (IsChild)
             transform.localPosition = position;
         else
             transform.position = position;
@@ -74,7 +72,7 @@ public class DoorController : BaseGimmickController
     }
     IEnumerator MoveToPosition(Vector3 destination)
     {
-        Vector3 startPos = (_isChild) ? transform.localPosition : transform.position;
+        Vector3 startPos = (IsChild) ? transform.localPosition : transform.position;
         Vector3 direction = (destination - startPos).normalized;
         float distance = Vector3.Distance(startPos, destination);
 
@@ -85,7 +83,7 @@ public class DoorController : BaseGimmickController
             if (moved + moveStep > distance)
                 moveStep = distance - moved;
 
-            if (_isChild)
+            if (IsChild)
                 transform.localPosition += direction * moveStep;
             else
                 transform.position += direction * moveStep;
@@ -94,7 +92,7 @@ public class DoorController : BaseGimmickController
             yield return null;
         }
 
-        if (_isChild)
+        if (IsChild)
             transform.localPosition = destination;
         else
             transform.position = destination; // 마지막에 정확히 맞추기
@@ -103,21 +101,21 @@ public class DoorController : BaseGimmickController
     IEnumerator RotateTo(Vector3 target)
     {
         Quaternion targetRot = Quaternion.Euler(target);
-        Quaternion quaternion = (_isChild) ? transform.localRotation : transform.rotation;
+        Quaternion quaternion = (IsChild) ? transform.localRotation : transform.rotation;
 
         while (Quaternion.Angle(quaternion, targetRot) > 0.01f)
         {
             float step = Speed * Time.deltaTime;
 
             quaternion = Quaternion.RotateTowards(transform.rotation, targetRot, step);
-            if (_isChild)
+            if (IsChild)
                 transform.localRotation = quaternion;
             else
                 transform.rotation = quaternion;
             yield return null;
         }
 
-        if (_isChild)
+        if (IsChild)
             transform.localRotation = targetRot;
         else
             transform.rotation = targetRot; // 마지막 정확히 맞춤
@@ -125,12 +123,10 @@ public class DoorController : BaseGimmickController
     }
     public override void Enter()
     {
-        base.Enter();
         Open();
     }
     public override void Exit()
     {
-        base.Exit();
         Close();
     }
     bool open = false;

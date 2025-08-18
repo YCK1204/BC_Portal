@@ -26,7 +26,6 @@ public class FloorSwitchController : BaseGimmickController
     Animator _animator;
     protected override void Init()
     {
-        base.Init();
         _animator = GetComponent<Animator>();
     }
 
@@ -56,7 +55,6 @@ public class FloorSwitchController : BaseGimmickController
     }
     public override void Enter()
     {
-        base.Enter();
         _animator.SetBool(AnimControllerParamName, true);
         if (_coOnOffSwitch != null)
             StopCoroutine(_coOnOffSwitch);
@@ -69,7 +67,6 @@ public class FloorSwitchController : BaseGimmickController
     }
     public override void Exit()
     {
-        base.Exit();
         _animator.SetBool(AnimControllerParamName, false);
         if (_coOnOffSwitch != null)
             StopCoroutine(_coOnOffSwitch);
@@ -82,7 +79,7 @@ public class FloorSwitchController : BaseGimmickController
     }
     IEnumerator CoChangeByPosition(Vector3 destination)
     {
-        Vector3 startPos = (_isChild) ? transform.localPosition : transform.position;
+        Vector3 startPos = (IsChild) ? transform.localPosition : transform.position;
         Vector3 direction = (destination - startPos).normalized;
         var distance = Vector3.Distance(startPos, destination);
         float moved = 0f;
@@ -93,7 +90,7 @@ public class FloorSwitchController : BaseGimmickController
             if (moved + moveStep > distance)
                 moveStep = distance - moved;
 
-            if (_isChild)
+            if (IsChild)
                 transform.localPosition += direction * moveStep;
             else
                 transform.position += direction * moveStep;
@@ -102,7 +99,7 @@ public class FloorSwitchController : BaseGimmickController
             yield return null;
         }
 
-        if (_isChild)
+        if (IsChild)
             transform.localPosition = destination;
         else
             transform.position = destination;

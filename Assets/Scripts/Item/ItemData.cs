@@ -16,4 +16,7 @@ public class ItemData : ScriptableObject
     public string description;
     public ItemType type;
     public GameObject dropPrefab;
+
+    [Header("Equip")]
+
 }

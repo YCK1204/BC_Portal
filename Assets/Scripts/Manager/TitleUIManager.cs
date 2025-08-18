@@ -21,11 +21,6 @@ public class TitleUIManager : MonoBehaviour
         //최근 세이브로 게임 시작
     }
 
-    public void OnClickLoadGame()
-    {
-        //로드 패널 불러오기
-    }
-
     public void OnClickSettings()
     {
         //세팅 패널 불러오기

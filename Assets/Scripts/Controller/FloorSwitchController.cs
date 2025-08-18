@@ -81,7 +81,7 @@ public class FloorSwitchController : BaseGimmickController
     }
     IEnumerator CoChangeByPosition(Vector3 destination)
     {
-        Vector3 startPos = transform.position;
+        Vector3 startPos = (_isChild) ? transform.localPosition : transform.position;
         Vector3 direction = (destination - startPos).normalized;
         var distance = Vector3.Distance(startPos, destination);
         float moved = 0f;
@@ -92,13 +92,19 @@ public class FloorSwitchController : BaseGimmickController
             if (moved + moveStep > distance)
                 moveStep = distance - moved;
 
-            transform.position += direction * moveStep;
+            if (_isChild)
+                transform.localPosition += direction * moveStep;
+            else
+                transform.position += direction * moveStep;
             moved += moveStep;
 
             yield return null;
         }
 
-        transform.position = destination;
+        if (_isChild)
+            transform.localPosition += destination;
+        else
+            transform.position = destination;
         _coOnOffSwitch = null;
     }
     IEnumerator CoChangeByScale(Vector3 targetScale)

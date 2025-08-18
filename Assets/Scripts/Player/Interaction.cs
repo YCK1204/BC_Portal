@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class Interaction : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Interaction : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject curInteractGameObject;
-    //private IInteractable curInteractable; ItemData를 강의와 같은 구조로 제작한다면 사용 가능
+    private IInteractable curInteractable;
 
     public TextMeshProUGUI promptText;
     private Camera camera;
@@ -33,14 +34,31 @@ public class Interaction : MonoBehaviour
             if(hit.collider.gameObject != curInteractGameObject)
             {
                 curInteractGameObject = hit.collider.gameObject;
-                //curInteractable = hit.collider.GetComponent<IInteractable>();
+                curInteractable = hit.collider.GetComponent<IInteractable>();
                 //출력해줘라.
             }
         }
         else
         {
             curInteractGameObject = null;
-            //curInteractable = null;
+            curInteractable = null;
+            promptText.gameObject.SetActive(false);
+        }
+    }
+
+    private void SetPromptText()
+    {
+        promptText.gameObject.SetActive(true);
+        promptText.text = curInteractable.GetInteractPrompt();
+    }
+
+    public void OnInteractInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        {
+            curInteractable.OnInteract();
+            curInteractGameObject = null;
+            curInteractable = null;
             promptText.gameObject.SetActive(false);
         }
     }

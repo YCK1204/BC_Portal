@@ -26,11 +26,11 @@ public class LaserPointer : MonoBehaviour
     {
         if(target != null)
         {
-            Vector3 direction = target.position - startPoint.position;
-            ray = new Ray(startPoint.position, direction);
+            Vector3 _direction = target.position - startPoint.position;
+            ray = new Ray(startPoint.position, _direction);
 
             // 벽이나 장애물 뒤에 타겟이 숨을 경우 레이저가 벽, 장애물까지만 표시되도록 경로 제한
-            if (Physics.Raycast(ray, out rayHit, direction.magnitude, obstacleMask))
+            if (Physics.Raycast(ray, out rayHit, _direction.magnitude, obstacleMask))
             {
                 OnLaser(startPoint.position, rayHit.point);
             }

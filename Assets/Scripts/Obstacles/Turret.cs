@@ -10,7 +10,7 @@ public class Turret : ObstacleBase
 
     [Header("Turret Settings")]
     [SerializeField] private float rotationSpeed = 5f; // 터렛 회전 속도
-    [SerializeField] private float detectionSpeed = 5f; // 터렛 감지 속도
+    //[SerializeField] private float detectionSpeed = 5f; // 터렛 감지 속도 - 안쓸 경우 삭제
     [SerializeField] private float detectionRange = 0f; // 터렛 감지 거리
     [SerializeField] private Transform target; // 타겟(플레이어)
     [SerializeField] private LayerMask targetLayerMask = 0; // Player 레이어
@@ -30,13 +30,13 @@ public class Turret : ObstacleBase
             laserPointer = GetComponent<LaserPointer>();
     }
 
-    public override void Activate() 
+    public override void Activate() //터렛 On
     {
         base.Activate();
         InvokeRepeating("FindTarget", 0, 0.5f);
     }
 
-    public override void Deactivate()
+    public override void Deactivate() // 터렛 Off
     {
         base.Deactivate();
         CancelInvoke("FindTarget");
@@ -48,7 +48,8 @@ public class Turret : ObstacleBase
         RotateTurret();
     }
 
-    private void FindTarget()
+    // 가장 가까운 타겟을 탐색(추후 확장을 위해 단일이 아닌 배열로 설정)
+    private void FindTarget() 
     {
         Collider[] _targetCollders = Physics.OverlapSphere(transform.position, detectionRange, targetLayerMask);  // 터렛 주변 콜라이더 탐색
         Transform _shortestTarget = null; // 가장 가까운 타겟

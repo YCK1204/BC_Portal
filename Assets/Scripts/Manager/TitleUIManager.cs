@@ -10,6 +10,11 @@ public class TitleUIManager : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject loadPanel;
 
+    void Start()
+    {
+        AudioManager.Instance.PlayBGM("Title");
+    }
+
     public void OnClickNewGame()
     {
         //게임 시작

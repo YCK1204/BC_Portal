@@ -847,6 +847,7 @@ GameObject:
 --- !u!224 &57907922
 RectTransform:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57907921}
@@ -17084,6 +17085,7 @@ GameObject:
   - component: {fileID: 1887619362}
   - component: {fileID: 1887619363}
   - component: {fileID: 1887619364}
+  - component: {fileID: 1887619365}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -17209,6 +17211,25 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1887619365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887619360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 283d90e95197d6449a8e16e70f9a68b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixer: {fileID: 24100000, guid: 22f665f2425a9ab48872a42698ce76a1, type: 2}
+  bgmChannels: 2
+  sfxChannels: 10
+  bgmClipList:
+  - name: Title
+    clip: {fileID: 8300000, guid: 1d8ffbb70dc716646abe11dba492a567, type: 3}
+  sfxClipList: []
 --- !u!4 &1900637943 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1453485022173259434, guid: eb4b38db67a56dc469a2c2aafcc36add, type: 3}

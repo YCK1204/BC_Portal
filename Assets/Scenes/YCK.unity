@@ -500,11 +500,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44d23d560abf184895fbd3af64b51b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Open: {x: 0, y: -5, z: 1.62}
-  _Close: {x: 0, y: 0, z: 1.62}
-  RotateOnOpen: 0
-  AutoOpen: 0
+  From: {x: 0, y: 0, z: 0}
+  To: {x: 0, y: 0, z: 0}
   Speed: 1
+  AutoSetFrom: 0
   IgnoreLayers: []
 --- !u!1001 &1656719681
 PrefabInstance:
@@ -706,10 +705,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858b5ae1c34a1bb4283f30361a0ea415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSwitchSize: {x: 6.37, y: 0, z: 1.62}
-  OffSwitchSize: {x: 6.37, y: 0, z: 1.62}
+  From: {x: 0, y: 0, z: 0}
+  To: {x: 0, y: 0, z: 0}
   Speed: 1
-  UseScaleInsteadOfPosition: 0
+  AutoSetFrom: 0
   linkedGimmicks:
   - {fileID: 1414370677}
   TargetLayers:

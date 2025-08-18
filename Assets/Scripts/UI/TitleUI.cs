@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
-public class TitleUIManager : MonoBehaviour
+public class TitleUI : MonoBehaviour
 {
     public Animator introAnimator;
 

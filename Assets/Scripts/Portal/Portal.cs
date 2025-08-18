@@ -6,14 +6,16 @@ using UnityEngine;
 public class Portal : MonoBehaviour
 {
     // 다른 포탈(반대편 포탈)
+    [field: SerializeField]
     public Portal otherPortal { get; private set; }
     // 포탈 외각선 랜더러(색상)
     [SerializeField] private Renderer outlineRenderer;
     // 포탈 색상
+    [field: SerializeField]
     public Color portalColor { get; private set; }
 
     // 설치 가능 레이어
-    [Tooltip("포탈 설치 가능한 레이어")] private LayerMask placementMask;
+    [SerializeField][Tooltip("포탈 설치 가능한 레이어")] private LayerMask placementMask;
 
     // 포탈에 들어온 오브젝트를 저장하는 리스트
     private List<PortalableObject> portalObjects = new List<PortalableObject>();

@@ -131,7 +131,7 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void StopBgm(string name)
+    public void StopBGM(string name)
     {
         if(!bgmClips.ContainsKey(name)) return;
 
@@ -145,13 +145,13 @@ public class AudioManager : Singleton<AudioManager>
             }
         }
     }
-    public void StopSfx(string name)
+    public void StopSFX(string name)
     {
         if(!sfxClips.ContainsKey(name)) return;
 
-        AudioClip _clip = bgmClips[name];
+        AudioClip _clip = sfxClips[name];
 
-        foreach (var _player in bgmPlayers)
+        foreach (var _player in sfxPlayers)
         {
             if (_player.isPlaying && _player.clip == _clip)
             {
@@ -160,7 +160,7 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void StopAllBgm()
+    public void StopAllBGM()
     {
         foreach (var _player in bgmPlayers)
         {
@@ -168,7 +168,7 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void StopAllSfx()
+    public void StopAllSFX()
     {
         foreach (var _player in sfxPlayers)
         {

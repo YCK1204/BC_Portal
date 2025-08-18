@@ -30,9 +30,17 @@ public class Turret : ObstacleBase
             laserPointer = GetComponent<LaserPointer>();
     }
 
-    private void Start()
+    public override void Activate() 
     {
+        base.Activate();
         InvokeRepeating("FindTarget", 0, 0.5f);
+    }
+
+    public override void Deactivate()
+    {
+        base.Deactivate();
+        CancelInvoke("FindTarget");
+        laserPointer.ClearTarget();
     }
 
     private void Update()

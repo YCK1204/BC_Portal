@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class BaseGimmickController : MonoBehaviour
 {
-    void Start() { Init(); }
+    protected bool _isChild = false;
+    void Start() { _isChild = transform.parent != null; Init(); }
     protected virtual void Init() { }
     public virtual void Enter() { }
     public virtual void Exit() { }

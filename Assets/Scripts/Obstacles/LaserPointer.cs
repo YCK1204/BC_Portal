@@ -5,15 +5,20 @@ using UnityEngine;
 public class LaserPointer : MonoBehaviour
 {
     [SerializeField] private Transform startPoint; // 포인터 시작점
-    public Transform target;
-    [SerializeField] private float laserLength = 20f; // 레이저 길이
-
+    [SerializeField] Transform target; // 타겟
+    [SerializeField] LayerMask obstacleMask;  // 타겟 이외 오브젝트들(벽, 장애물 등)
     [SerializeField] private LineRenderer lineRenderer;
 
+    private Ray ray;             
+    private RaycastHit rayHit;  
 
     void Start()
     {
-        lineRenderer = GetComponentInChildren<LineRenderer>();
+        if(lineRenderer == null)
+        {  
+            lineRenderer = GetComponent<LineRenderer>(); 
+        }
+
         lineRenderer.positionCount = 2; // 레이저 포인터 점 갯수
     }
 
@@ -21,7 +26,18 @@ public class LaserPointer : MonoBehaviour
     {
         if(target != null)
         {
-            OnLaser(startPoint.position, target.position);
+            Vector3 _direction = target.position - startPoint.position;
+            ray = new Ray(startPoint.position, _direction);
+
+            // 벽이나 장애물 뒤에 타겟이 숨을 경우 레이저가 벽, 장애물까지만 표시되도록 경로 제한
+            if (Physics.Raycast(ray, out rayHit, _direction.magnitude, obstacleMask))
+            {
+                OnLaser(startPoint.position, rayHit.point);
+            }
+            else
+            {
+                OnLaser(startPoint.position, target.position);
+            }          
         }
         else
         {

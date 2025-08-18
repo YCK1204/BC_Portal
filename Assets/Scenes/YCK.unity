@@ -411,7 +411,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4760002821877558, guid: 10fe2af0159f56e4395fa21beb64e559, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.03
       objectReference: {fileID: 0}
     - target: {fileID: 4760002821877558, guid: 10fe2af0159f56e4395fa21beb64e559, type: 3}
       propertyPath: m_LocalPosition.y
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4760002821877558, guid: 10fe2af0159f56e4395fa21beb64e559, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.84
       objectReference: {fileID: 0}
     - target: {fileID: 4760002821877558, guid: 10fe2af0159f56e4395fa21beb64e559, type: 3}
       propertyPath: m_LocalRotation.w
@@ -532,7 +532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.37
       objectReference: {fileID: 0}
     - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
       propertyPath: m_LocalPosition.y
@@ -540,7 +540,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.62
       objectReference: {fileID: 0}
     - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
       propertyPath: m_LocalRotation.w
@@ -706,8 +706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 858b5ae1c34a1bb4283f30361a0ea415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OnSwitchSize: {x: 0, y: 0, z: 0}
-  OffSwitchSize: {x: 0, y: 0, z: 0}
+  OnSwitchSize: {x: 6.37, y: 0, z: 1.62}
+  OffSwitchSize: {x: 6.37, y: 0, z: 1.62}
   Speed: 1
   UseScaleInsteadOfPosition: 0
   linkedGimmicks:

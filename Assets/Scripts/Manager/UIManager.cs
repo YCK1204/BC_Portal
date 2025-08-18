@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEditor.Timeline.TimelinePlaybackControls;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     [Header("UI")]
-    //public Animator MenuAnimator;
+    public Animator MenuAnimator;
+
     private bool isMenuOpen = false;
 
+    public Slider bgmSlider;
+    public Slider sfxSlider;
+
+    private void Start()
+    {
+        AudioManager.Instance.AudioSliders(bgmSlider, sfxSlider);
+    }
 
     public void OnEsc(InputAction.CallbackContext context)
     {
@@ -20,13 +28,13 @@ public class UIManager : MonoBehaviour
         if (isMenuOpen)
         {
             Debug.Log("ON");
-            //MenuAnimator.SetTrigger("Open");
+            MenuAnimator.SetTrigger("Open");
             Time.timeScale = 0f;
         }
         else
         {
             Debug.Log("OFF");
-            //MenuAnimator.SetTrigger("Close");
+            MenuAnimator.SetTrigger("Close");
             Time.timeScale = 1f;
         }
     }

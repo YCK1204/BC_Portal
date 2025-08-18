@@ -24,6 +24,9 @@ public class Turret : ObstacleBase
 
     [SerializeField] private LaserPointer laserPointer; // 레이저 포인터
 
+    [SerializeField] private bool showGizmo = true; // 기즈모 on/off
+
+
     private void Awake()
     {
         if (laserPointer == null)
@@ -116,6 +119,13 @@ public class Turret : ObstacleBase
         }
 
         lastFireTime = Time.time;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!showGizmo) return;
+        Gizmos.color = new Color(0,1,0,0.3f);
+        Gizmos.DrawSphere(transform.position, detectionRange);
     }
 
 }

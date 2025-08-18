@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Player
   - SwitchBox
-  - 
-  - 
-  - 
+  - Ground
+  - Interactable
+  - Equip
   - 
   - 
   - 

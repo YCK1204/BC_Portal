@@ -28,7 +28,6 @@ public class DoorController : BaseGimmickController
         if (RotateOnOpen)
             Speed *= 10f;
 
-
         if (RotateOnOpen)
             RotateInit();
         else
@@ -39,22 +38,18 @@ public class DoorController : BaseGimmickController
     }
     void RotateInit()
     {
-        bool isChild = transform.parent != null;
-
         Quaternion quaternion = (AutoOpen) ? Quaternion.Euler(_Open.x, _Open.y, _Open.z) 
                                             : Quaternion.Euler(_Close.x, _Close.y, _Close.z);
 
-        if (isChild)
+        if (_isChild)
             transform.localRotation = quaternion;
         else
             transform.rotation = quaternion;
     }
     void PositionInit()
     {
-        bool isChild = transform.parent != null;
-
         Vector3 position = (AutoOpen) ? _Open : _Close;
-        if (isChild)
+        if (_isChild)
             transform.localPosition = position;
         else
             transform.position = position;
@@ -79,7 +74,7 @@ public class DoorController : BaseGimmickController
     }
     IEnumerator MoveToPosition(Vector3 destination)
     {
-        Vector3 startPos = transform.position;
+        Vector3 startPos = (_isChild) ? transform.localPosition : transform.position;
         Vector3 direction = (destination - startPos).normalized;
         float distance = Vector3.Distance(startPos, destination);
 
@@ -90,27 +85,42 @@ public class DoorController : BaseGimmickController
             if (moved + moveStep > distance)
                 moveStep = distance - moved;
 
-            transform.position += direction * moveStep;
+            if (_isChild)
+                transform.localPosition += direction * moveStep;
+            else
+                transform.position += direction * moveStep;
             moved += moveStep;
 
             yield return null;
         }
 
-        transform.position = destination; // 마지막에 정확히 맞추기
+        if (_isChild)
+            transform.localPosition = destination;
+        else
+            transform.position = destination; // 마지막에 정확히 맞추기
         _coOpenClose = null;
     }
     IEnumerator RotateTo(Vector3 target)
     {
         Quaternion targetRot = Quaternion.Euler(target);
+        Quaternion quaternion = (_isChild) ? transform.localRotation : transform.rotation;
 
-        while (Quaternion.Angle(transform.rotation, targetRot) > 0.01f)
+        while (Quaternion.Angle(quaternion, targetRot) > 0.01f)
         {
             float step = Speed * Time.deltaTime;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, step);
+
+            quaternion = Quaternion.RotateTowards(transform.rotation, targetRot, step);
+            if (_isChild)
+                transform.localRotation = quaternion;
+            else
+                transform.rotation = quaternion;
             yield return null;
         }
 
-        transform.rotation = targetRot; // 마지막 정확히 맞춤
+        if (_isChild)
+            transform.localRotation = targetRot;
+        else
+            transform.rotation = targetRot; // 마지막 정확히 맞춤
         _coOpenClose = null;
     }
     public override void Enter()

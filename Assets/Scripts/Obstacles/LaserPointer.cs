@@ -28,55 +28,64 @@ public class LaserPointer : ObstacleBase
     {
         if (isSensorMode)
         {
-            // 감지 장치 모드
-            Vector3 _direction = startPoint.forward; // 정면으로 레이저 발사
-            ray = new Ray(startPoint.position, _direction);
-            Vector3 _endPoint = startPoint.position + _direction * laserLength;
-
-            if (Physics.Raycast(ray, out rayHit, laserLength, obstacleMask))
-            {
-                _endPoint = rayHit.point;
-
-                if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
-                {
-                    Debug.Log("플레이어 감지");
-                    // 감지 후 이벤트 추가 (ex 경고 발생, 터렛 작동, 사망 등등)
-                }
-            }
-
-            OnLaser(startPoint.position, _endPoint);
+            SensorMode();
         }
         else
         {
-            // 터렛 모드
-            if (target != null)
-            {
-                Vector3 _direction = target.position - startPoint.position; // 타겟 방향으로 레이저 발사
-                ray = new Ray(startPoint.position, _direction);
-
-                if (Physics.Raycast(ray, out rayHit, _direction.magnitude, obstacleMask))
-                {
-                    OnLaser(startPoint.position, rayHit.point);
-                }
-                else
-                {
-                    OnLaser(startPoint.position, target.position);
-                }
-            }
-            else
-            {
-                OffLaser(); // 타겟 없으면 레이저 꺼짐
-            }
+            TurretMode();
         }
     }
 
-    public override void Activate()
+    public void SensorMode()
+    {
+        // 감지 장치 모드
+        Vector3 _direction = startPoint.forward; // 정면으로 레이저 발사
+        ray = new Ray(startPoint.position, _direction);
+        Vector3 _endPoint = startPoint.position + _direction * laserLength;
+
+        if (Physics.Raycast(ray, out rayHit, laserLength, obstacleMask))
+        {
+            _endPoint = rayHit.point;
+
+            if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                Debug.Log("플레이어 감지");
+                // 감지 후 이벤트 추가 (ex 경고 발생, 터렛 작동, 사망 등등)
+            }
+        }
+
+        OnLaser(startPoint.position, _endPoint);
+    }
+
+    public void TurretMode()
+    {
+        if(target != null)
+        {
+            Vector3 _direction = target.position - startPoint.position; // 타겟 방향으로 레이저 발사
+            ray = new Ray(startPoint.position, _direction);
+
+            if (Physics.Raycast(ray, out rayHit, _direction.magnitude, obstacleMask))
+            {
+                OnLaser(startPoint.position, rayHit.point);
+            }
+            else
+            {
+                OnLaser(startPoint.position, target.position);
+            }
+        }
+        else
+        {
+            OffLaser();
+        }
+    }
+
+    public override void Activate() // 감지모드 On
     {
         base.Activate();
         isSensorMode = true;
     }
 
-    public override void Deactivate()
+    public override void Deactivate() // 감지모드 Off
     {
         base.Deactivate();
         isSensorMode = false;

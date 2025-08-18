@@ -77,19 +77,23 @@ public class Turret : ObstacleBase
 
     private void RotateTurret()
     {
+        Quaternion _targetRotation;
+
         if (target == null) // 대기 상태에서 회전
         {
-            Quaternion _idleTargetRotation = turretHead.rotation * Quaternion.Euler(0, 1f, 0);
-            turretHead.rotation = Quaternion.RotateTowards(turretHead.rotation, _idleTargetRotation, idleRotationSpeed * Time.deltaTime);
+            _targetRotation = turretHead.rotation * Quaternion.Euler(0, 1f, 0);
             laserPointer.ClearTarget();
         }
         else // 타겟 감지 시 타겟을 향해 회전
         {
             Vector3 _direction = target.position - turretHead.position; // 타겟 방향
+            _targetRotation = Quaternion.LookRotation(_direction);
+        }
+        float currentSpeed = target == null ? idleRotationSpeed : rotationSpeed;
+        turretHead.rotation = Quaternion.RotateTowards(turretHead.rotation, _targetRotation, currentSpeed * Time.deltaTime);
 
-            Quaternion _targetRotation = Quaternion.LookRotation(_direction);
-            turretHead.rotation = Quaternion.RotateTowards(turretHead.rotation, _targetRotation, rotationSpeed * Time.deltaTime);
-
+        if(target != null )
+        {
             // 타겟과 일정 각도 안에서 레이저 포인터 ON
             float _angleToTarget = Quaternion.Angle(turretHead.rotation, _targetRotation);
 
@@ -103,6 +107,7 @@ public class Turret : ObstacleBase
                 laserPointer.ClearTarget();
             }
         }
+
     }
 
     public void Fire()

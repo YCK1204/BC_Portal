@@ -38,4 +38,14 @@ public class UIManager : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
+
+    public void OnCancel()
+    {
+        isMenuOpen = !isMenuOpen;
+
+        AudioManager.Instance.PlaySFX("Button");
+        Debug.Log("OFF");
+        MenuAnimator.SetTrigger("Close");
+        Time.timeScale = 1f;
+    }
 }

@@ -27216,6 +27216,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   lineRenderer: {fileID: 1411062409}
+  laserLength: 10
 --- !u!114 &1996542813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27231,7 +27232,7 @@ MonoBehaviour:
   turretBase: {fileID: 1875968682}
   turretHead: {fileID: 2114134790}
   rotationSpeed: 270
-  detectionSpeed: 5
+  idleRotationSpeed: 0
   detectionRange: 10
   target: {fileID: 0}
   targetLayerMask:
@@ -27241,6 +27242,7 @@ MonoBehaviour:
   firePoint: {fileID: 1411062408}
   fireCooldown: 1
   laserPointer: {fileID: 1996542812}
+  showGizmo: 1
 --- !u!1001 &2002360569
 PrefabInstance:
   m_ObjectHideFlags: 0

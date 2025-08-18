@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 5977175010321167585}
   - component: {fileID: 4421992805449935183}
   - component: {fileID: 7754467912690673941}
+  - component: {fileID: 279991446228943049}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -193,7 +194,19 @@ MonoBehaviour:
     m_ActionId: 0175c667-6b86-4e9f-961a-d85326161444
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 279991446228943049}
+        m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
+        m_MethodName: OnInteractInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: c2ee26cc-4c5b-450b-9979-a5f1d95b523d
     m_ActionName: Player/Interaction[/Keyboard/e]
   - m_PersistentCalls:
@@ -226,6 +239,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 0}
+  itemData: {fileID: 0}
+  dropPoint: {fileID: 0}
 --- !u!114 &7754467912690673941
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,11 +257,30 @@ MonoBehaviour:
   jumpPower: 80
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 183
+    m_Bits: 439
   cameraContainer: {fileID: 5338009126380780626}
   minXLook: -85
   maxXLook: 85
   lookSensitivity: 0.15
+--- !u!114 &279991446228943049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123414133598755704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9185320acb5ec674e9d74368fe1f6066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkRate: 0.05
+  maxCheckDistance: 3
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  curInteractGameObject: {fileID: 0}
+  promptText: {fileID: 0}
 --- !u!1 &6389003733184668483
 GameObject:
   m_ObjectHideFlags: 0

@@ -112,7 +112,7 @@ public class Turret : ObstacleBase
         _rotation *= Quaternion.Euler(90f,0,0); // 발사각도
 
         GameObject _laser = Instantiate(laserPrefab, firePoint.position, _rotation); // 레이저 프리팹 생성
-        LaserProjectile _projectile = _laser.GetComponent<LaserProjectile>();
+        Projectile _projectile = _laser.GetComponent<Projectile>();
         if (_projectile != null)
         {
             _projectile.Init(_direction);

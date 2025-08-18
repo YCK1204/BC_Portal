@@ -28,23 +28,36 @@ public class DoorController : BaseGimmickController
         if (RotateOnOpen)
             Speed *= 10f;
 
-        if (AutoOpen)
-        {
-            if (RotateOnOpen)
-                transform.rotation = Quaternion.Euler(_Open.x, _Open.y, _Open.z);
-            else
-                transform.position = _Open;
-        }
+
+        if (RotateOnOpen)
+            RotateInit();
         else
-        {
-            if (RotateOnOpen)
-                transform.rotation = Quaternion.Euler(_Close.x, _Close.y, _Close.z);
-            else
-                transform.position = _Close;
-        }
+            PositionInit();
 
         foreach (string layerName in IgnoreLayers)
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer($"{layerName}"), LayerMask.NameToLayer("Door"), true);
+    }
+    void RotateInit()
+    {
+        bool isChild = transform.parent != null;
+
+        Quaternion quaternion = (AutoOpen) ? Quaternion.Euler(_Open.x, _Open.y, _Open.z) 
+                                            : Quaternion.Euler(_Close.x, _Close.y, _Close.z);
+
+        if (isChild)
+            transform.localRotation = quaternion;
+        else
+            transform.rotation = quaternion;
+    }
+    void PositionInit()
+    {
+        bool isChild = transform.parent != null;
+
+        Vector3 position = (AutoOpen) ? _Open : _Close;
+        if (isChild)
+            transform.localPosition = position;
+        else
+            transform.position = position;
     }
     private void Close()
     {

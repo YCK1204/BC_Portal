@@ -18,5 +18,6 @@ public class ItemData : ScriptableObject
     public GameObject dropPrefab;
 
     [Header("Equip")]
+    public GameObject equipPrefab;
 
 }

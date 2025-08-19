@@ -9,9 +9,9 @@ public class Turret : ObstacleBase
     [SerializeField] private Transform turretHead; // 본체
 
     [Header("Turret Settings")]
-    [SerializeField] private float rotationSpeed = 5f; // 터렛 회전 속도
-    [SerializeField] private float detectionSpeed = 5f; // 터렛 감지 속도
-    [SerializeField] private float detectionRange = 0f; // 터렛 감지 거리
+    [SerializeField] private float rotationSpeed; // 터렛 회전 속도
+    [SerializeField] private float idleRotationSpeed; // 터렛 감지 속도 - 안쓸 경우 삭제
+    [SerializeField] private float detectionRange; // 터렛 감지 거리
     [SerializeField] private Transform target; // 타겟(플레이어)
     [SerializeField] private LayerMask targetLayerMask = 0; // Player 레이어
 
@@ -24,15 +24,26 @@ public class Turret : ObstacleBase
 
     [SerializeField] private LaserPointer laserPointer; // 레이저 포인터
 
+    [SerializeField] private bool showGizmo = true; // 기즈모 on/off
+
+
     private void Awake()
     {
         if (laserPointer == null)
             laserPointer = GetComponent<LaserPointer>();
     }
 
-    private void Start()
+    public override void Activate() //터렛 On
     {
+        base.Activate();
         InvokeRepeating("FindTarget", 0, 0.5f);
+    }
+
+    public override void Deactivate() // 터렛 Off
+    {
+        base.Deactivate();
+        CancelInvoke("FindTarget");
+        laserPointer.ClearTarget();
     }
 
     private void Update()
@@ -40,46 +51,53 @@ public class Turret : ObstacleBase
         RotateTurret();
     }
 
-    private void FindTarget()
+    // 가장 가까운 타겟을 탐색(추후 확장을 위해 단일이 아닌 배열로 설정)
+    private void FindTarget() 
     {
-        Collider[] targetCollders = Physics.OverlapSphere(transform.position, detectionRange, targetLayerMask);  // 터렛 주변 콜라이더 탐색
-        Transform shortestTarget = null; // 가장 가까운 타겟
+        Collider[] _targetCollders = Physics.OverlapSphere(transform.position, detectionRange, targetLayerMask);  // 터렛 주변 콜라이더 탐색
+        Transform _shortestTarget = null; // 가장 가까운 타겟
 
         // 타겟 콜라이더 탐색
-        if (targetCollders.Length > 0)
+        if (_targetCollders.Length > 0)
         {
             float shortestTargetDistance = Mathf.Infinity;
-            foreach(Collider targetColider in targetCollders) // 콜라이더를 찾을 때까지 탐색 반복
+            foreach(Collider _targetColider in _targetCollders) // 콜라이더를 찾을 때까지 탐색 반복
             {
-                float targetDistance = Vector3.SqrMagnitude(transform.position - targetColider.transform.position); // 터렛과 타겟과의 거리
+                float targetDistance = Vector3.SqrMagnitude(transform.position - _targetColider.transform.position); // 터렛과 타겟과의 거리
                 if(shortestTargetDistance > targetDistance)
                 {
                     shortestTargetDistance = targetDistance;
-                    shortestTarget = targetColider.transform;
+                    _shortestTarget = _targetColider.transform;
                 }
             }
         }
 
-        target = shortestTarget;
+        target = _shortestTarget;
     }
 
     private void RotateTurret()
     {
+        Quaternion _targetRotation;
+
         if (target == null) // 대기 상태에서 회전
         {
-            turretHead.Rotate(new Vector3(0, 45, 0) * Time.deltaTime);
+            _targetRotation = turretHead.rotation * Quaternion.Euler(0, 1f, 0);
             laserPointer.ClearTarget();
         }
         else // 타겟 감지 시 타겟을 향해 회전
         {
-            Quaternion targetLookRotation = Quaternion.LookRotation(target.position);
-            Vector3 targetEuler = Quaternion.RotateTowards(turretHead.rotation, targetLookRotation, rotationSpeed * Time.deltaTime).eulerAngles;
-            turretHead.rotation = Quaternion.Euler(targetEuler.x, targetEuler.y, 0);
+            Vector3 _direction = target.position - turretHead.position; // 타겟 방향
+            _targetRotation = Quaternion.LookRotation(_direction);
+        }
+        float currentSpeed = target == null ? idleRotationSpeed : rotationSpeed;
+        turretHead.rotation = Quaternion.RotateTowards(turretHead.rotation, _targetRotation, currentSpeed * Time.deltaTime);
 
+        if(target != null )
+        {
             // 타겟과 일정 각도 안에서 레이저 포인터 ON
-            float angleToTarget = Quaternion.Angle(turretHead.rotation, targetLookRotation);
+            float _angleToTarget = Quaternion.Angle(turretHead.rotation, _targetRotation);
 
-            if (angleToTarget < 5f)
+            if (_angleToTarget < 5f)
             {
                 laserPointer.SetTarget(target);
                 Fire();
@@ -89,24 +107,32 @@ public class Turret : ObstacleBase
                 laserPointer.ClearTarget();
             }
         }
+
     }
 
     public void Fire()
     {
         if (target == null || Time.time < lastFireTime + fireCooldown) return;
 
-        Vector3 direction = (target.position - firePoint.position).normalized; // 발사 방향
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        rotation *= Quaternion.Euler(90f,0,0); // 발사각도
+        Vector3 _direction = (target.position - firePoint.position).normalized; // 발사 방향
+        Quaternion _rotation = Quaternion.LookRotation(_direction);
+        _rotation *= Quaternion.Euler(90f,0,0); // 발사각도
 
-        GameObject laser = Instantiate(laserPrefab, firePoint.position, rotation);
-        LaserProjectile projectile = laser.GetComponent<LaserProjectile>();
-        if (projectile != null)
+        GameObject _laser = Instantiate(laserPrefab, firePoint.position, _rotation); // 레이저 프리팹 생성
+        Projectile _projectile = _laser.GetComponent<Projectile>();
+        if (_projectile != null)
         {
-            projectile.Init(direction);
+            _projectile.Init(_direction);
         }
 
         lastFireTime = Time.time;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (!showGizmo) return;
+        Gizmos.color = new Color(0,1,0,0.3f);
+        Gizmos.DrawSphere(transform.position, detectionRange);
     }
 
 }

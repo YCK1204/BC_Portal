@@ -13,6 +13,9 @@ TagManager:
   - UI
   - Player
   - SwitchBox
+  - Ground
+  - Interactable
+  - Equip
   - 
   - 
   - 
@@ -33,10 +36,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - projectile
   m_SortingLayers:
   - name: Default
     uniqueID: 0

@@ -21,4 +21,5 @@ public class ItemData : ScriptableObject
     [Header("Equip")]
     public GameObject equipPrefab;
 
+
 }

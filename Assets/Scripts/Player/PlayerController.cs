@@ -20,16 +20,39 @@ public class PlayerController : MonoBehaviour
     public float lookSensitivity;
     private Vector2 mouseDelta;
 
-
+    protected AniController aniController;
+    [Header("Jump")]
+    private bool wasGrounded;
+    private bool jumpLocked;
+    private bool jumpHeld;
+    [SerializeField] private float jumpCooldown = 0.1f;
+    private float nextJumpTime;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        aniController = GetComponentInChildren<AniController>();
+
+        _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        wasGrounded = IsGrounded();
+        jumpLocked = !wasGrounded;
+
+    }
+
+    private void Update()
+    {
+        bool grounded = IsGrounded();
+        if(grounded && !wasGrounded)
+        {
+            aniController.JumpEnd();
+            jumpLocked = false;
+        }
+        wasGrounded = grounded;
     }
     private void FixedUpdate()
     {
@@ -49,6 +72,7 @@ public class PlayerController : MonoBehaviour
         dir.y = _rigidbody.velocity.y;
 
         _rigidbody.velocity = dir;
+        aniController.Move(curMovementInput);
     }
 
     void CameraLook()
@@ -79,9 +103,21 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && IsGrounded())
+        if(context.phase == InputActionPhase.Started)
         {
-            _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            jumpHeld = true;
+            if (IsGrounded() && !jumpLocked && Time.time > nextJumpTime)
+            {
+                _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+                aniController.Jump();
+                jumpLocked = true;
+                nextJumpTime = Time.time + jumpCooldown;
+            }
+            
+        }
+        else if (context.phase == InputActionPhase.Canceled)
+        {
+            jumpHeld = false;
         }
     }
 

@@ -17,8 +17,8 @@ TagManager:
   - Interactable
   - Equip
   - EquippedItem
-  - 
-  - 
+  - PlayerBody
+  - PBodyInvisable
   - 
   - 
   - 

@@ -36,42 +36,50 @@ public class LaserPointer : ObstacleBase
         }
     }
 
-    public void SensorMode()
+    // 콜백으로 ray에 뭔가 맞았을때는 onHit, 맞지 않았을때는 onMiss 콜백 실행
+    private void ShootLaser(Vector3 direction, float distance, System.Action<RaycastHit> onHit = null, System.Action onMiss = null)
     {
-        // 감지 장치 모드
-        Vector3 _direction = startPoint.forward; // 정면으로 레이저 발사
-        ray = new Ray(startPoint.position, _direction);
-        Vector3 _endPoint = startPoint.position + _direction * laserLength;
+        ray = new Ray(startPoint.position, direction);
+        Vector3 _endPoint = startPoint.position + direction * distance;
 
-        if (Physics.Raycast(ray, out rayHit, laserLength, obstacleMask))
+        if(Physics.Raycast(ray, out rayHit, distance, obstacleMask))
         {
             _endPoint = rayHit.point;
-
-            if (rayHit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
-            {
-                Debug.Log("플레이어 감지");
-                // 감지 후 이벤트 추가 (ex 경고 발생, 터렛 작동, 사망 등등)
-            }
+            onHit?.Invoke(rayHit);
+        }
+        else
+        {
+            onMiss?.Invoke();
         }
 
         OnLaser(startPoint.position, _endPoint);
     }
 
+    public void SensorMode()
+    {
+        // 감지 장치 모드
+        Vector3 _direction = startPoint.forward; // 정면으로 레이저 발사
+        ShootLaser(_direction, laserLength, onHit: (hit) =>
+        {
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+            {
+                Debug.Log("플레이어 감지");
+                // 감지 후 이벤트 추가 (ex 경고 발생, 터렛 작동, 사망 등등)
+            }
+        }
+        );
+    }
+
     public void TurretMode()
     {
-        if(target != null)
+        if (target != null)
         {
             Vector3 _direction = target.position - startPoint.position; // 타겟 방향으로 레이저 발사
-            ray = new Ray(startPoint.position, _direction);
-
-            if (Physics.Raycast(ray, out rayHit, _direction.magnitude, obstacleMask))
-            {
-                OnLaser(startPoint.position, rayHit.point);
-            }
-            else
+            ShootLaser(_direction, _direction.magnitude, onMiss: () =>
             {
                 OnLaser(startPoint.position, target.position);
             }
+            );
         }
         else
         {

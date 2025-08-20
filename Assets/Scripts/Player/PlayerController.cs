@@ -28,6 +28,8 @@ public class PlayerController : PortalableObject
     [SerializeField] private float jumpCooldown = 0.1f;
     private float nextJumpTime;
 
+    public float rotationSpeed = 5f;
+
     private void Awake()
     {
         base.Awake();
@@ -54,6 +56,9 @@ public class PlayerController : PortalableObject
             jumpLocked = false;
         }
         wasGrounded = grounded;
+
+        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
     private void FixedUpdate()
     {

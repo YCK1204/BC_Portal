@@ -9,7 +9,7 @@ public class PortalPair : MonoBehaviour
 
     private void Awake()
     {
-        Portals = GetComponentsInChildren<Portal>();
+        Portals = GetComponentsInChildren<Portal>(true);
 
         if (Portals.Length != 2)
         {

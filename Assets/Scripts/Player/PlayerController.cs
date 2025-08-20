@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerController : MonoBehaviour
+public class PlayerController : PortalableObject
 {
     [Header("Movement")]
     public float moveSpeed;
@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float jumpPower;
     public LayerMask groundLayerMask;
 
-    private Rigidbody _rigidbody;
+    //private Rigidbody _rigidbody;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -30,7 +30,8 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        base.Awake();
+        //_rigidbody = GetComponent<Rigidbody>();
         aniController = GetComponentInChildren<AniController>();
 
         _rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;

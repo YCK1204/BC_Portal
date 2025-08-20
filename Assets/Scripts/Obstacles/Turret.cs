@@ -10,7 +10,7 @@ public class Turret : ObstacleBase
 
     [Header("Turret Settings")]
     [SerializeField] private float rotationSpeed; // 터렛 회전 속도
-    [SerializeField] private float idleRotationSpeed; // 터렛 감지 속도 - 안쓸 경우 삭제
+    [SerializeField] private float idleRotationSpeed; // 터렛 대기 상태 회전 속도
     [SerializeField] private float detectionRange; // 터렛 감지 거리
     [SerializeField] private Transform target; // 타겟(플레이어)
     [SerializeField] private LayerMask targetLayerMask = 0; // Player 레이어
@@ -26,6 +26,9 @@ public class Turret : ObstacleBase
 
     [SerializeField] private bool showGizmo = true; // 기즈모 on/off
 
+    public ParticleSystem MuzzleFlash;
+
+    private string currentSound = "";
 
     private void Awake()
     {
@@ -60,13 +63,13 @@ public class Turret : ObstacleBase
         // 타겟 콜라이더 탐색
         if (_targetCollders.Length > 0)
         {
-            float shortestTargetDistance = Mathf.Infinity;
+            float _shortestTargetDistance = Mathf.Infinity;
             foreach(Collider _targetColider in _targetCollders) // 콜라이더를 찾을 때까지 탐색 반복
             {
-                float targetDistance = Vector3.SqrMagnitude(transform.position - _targetColider.transform.position); // 터렛과 타겟과의 거리
-                if(shortestTargetDistance > targetDistance)
+                float _targetDistance = Vector3.SqrMagnitude(transform.position - _targetColider.transform.position); // 터렛과 타겟과의 거리
+                if(_shortestTargetDistance > _targetDistance)
                 {
-                    shortestTargetDistance = targetDistance;
+                    _shortestTargetDistance = _targetDistance;
                     _shortestTarget = _targetColider.transform;
                 }
             }
@@ -77,55 +80,96 @@ public class Turret : ObstacleBase
 
     private void RotateTurret()
     {
-        Quaternion _targetRotation;
+        Quaternion _turretMode = RotateMode();
+        HandleRotateSound();
+        RotateSpeed(_turretMode);
+        HandleLaserPointer(_turretMode);
+    }
 
-        if (target == null) // 대기 상태에서 회전
+    // 터렛 사운드
+    // 대기 모드일 때는 Idle 사운드, 추적 모드일때는 Track 사운드
+    private void HandleRotateSound()
+    {
+        string _newSound = target == null ? "Turret_IdleRotate" : "Turret_TrackRotate";
+
+        if (_newSound != currentSound)
         {
-            _targetRotation = turretHead.rotation * Quaternion.Euler(0, 1f, 0);
+            AudioManager.Instance.StopSFX(currentSound);
+
+            if (_newSound == "Turret_IdleRotate")
+                AudioManager.Instance.PlayLoopSFX(_newSound);
+            else
+                AudioManager.Instance.PlaySFX(_newSound);
+
+            currentSound = _newSound;
+        }
+    }
+
+    // 터렛 모드별 회전 상태
+    // 대기 모드, 추적 모드
+    private Quaternion RotateMode()
+    {
+        if (target == null)
+        {
+            laserPointer.ClearTarget();
+            return turretHead.rotation * Quaternion.Euler(0, 1f, 0);
+        }
+        else
+        {
+            Vector3 _direction = target.position - turretHead.position;
+            return Quaternion.LookRotation(_direction);
+        }
+    }
+
+    // 터렛 회전 속도
+    // 터렛 모드에 따라 회전 속도 차이 
+    private void RotateSpeed(Quaternion targetRotation)
+    {
+        float _currentSpeed = target == null ? idleRotationSpeed : rotationSpeed;
+        turretHead.rotation = Quaternion.RotateTowards(turretHead.rotation, targetRotation, _currentSpeed * Time.deltaTime);
+    }
+
+    // 터렛 레이저 포인터 작동
+    // 대기 모드에서는 OFF, 추적 상태에서는 타겟이 일정각도 안으로 들어와야 ON
+    private void HandleLaserPointer(Quaternion targetRotation)
+    {
+        if (target == null) return;
+
+        float _angleToTarget = Quaternion.Angle(turretHead.rotation, targetRotation);
+
+        if (_angleToTarget < 5f)
+        {
+            laserPointer.SetTarget(target);
+            Fire();
+        }
+        else
+        {
             laserPointer.ClearTarget();
         }
-        else // 타겟 감지 시 타겟을 향해 회전
-        {
-            Vector3 _direction = target.position - turretHead.position; // 타겟 방향
-            _targetRotation = Quaternion.LookRotation(_direction);
-        }
-        float currentSpeed = target == null ? idleRotationSpeed : rotationSpeed;
-        turretHead.rotation = Quaternion.RotateTowards(turretHead.rotation, _targetRotation, currentSpeed * Time.deltaTime);
-
-        if(target != null )
-        {
-            // 타겟과 일정 각도 안에서 레이저 포인터 ON
-            float _angleToTarget = Quaternion.Angle(turretHead.rotation, _targetRotation);
-
-            if (_angleToTarget < 5f)
-            {
-                laserPointer.SetTarget(target);
-                Fire();
-            }
-            else
-            {
-                laserPointer.ClearTarget();
-            }
-        }
-
     }
 
     public void Fire()
     {
-        if (target == null || Time.time < lastFireTime + fireCooldown) return;
+    // 발사 조건 확인
+    if (target == null || Time.time < lastFireTime + fireCooldown)
+        return;
 
-        Vector3 _direction = (target.position - firePoint.position).normalized; // 발사 방향
-        Quaternion _rotation = Quaternion.LookRotation(_direction);
-        _rotation *= Quaternion.Euler(90f,0,0); // 발사각도
+    // 발사 방향 및 회전 계산
+    Vector3 _direction = (target.position - firePoint.position).normalized;
+    Quaternion _rotation = Quaternion.LookRotation(_direction) * Quaternion.Euler(90f, 0f, 0f);
 
-        GameObject _laser = Instantiate(laserPrefab, firePoint.position, _rotation); // 레이저 프리팹 생성
-        Projectile _projectile = _laser.GetComponent<Projectile>();
-        if (_projectile != null)
-        {
-            _projectile.Init(_direction);
-        }
+    // 사운드 및 이펙트 재생
+    AudioManager.Instance.PlaySFX("Turret_Fire");
+    MuzzleFlash?.Play();
 
-        lastFireTime = Time.time;
+    // 레이저 생성 및 초기화
+    GameObject _laser = Instantiate(laserPrefab, firePoint.position, _rotation);
+    Projectile _projectile = _laser.GetComponent<Projectile>();
+    _projectile?.Init(_direction);
+
+    // 마지막 발사 시간 갱신
+    lastFireTime = Time.time;
+
     }
 
     private void OnDrawGizmos()

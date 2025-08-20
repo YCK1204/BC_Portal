@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     {
         PlayerManager.Instance.Player = this;
         controller = GetComponent<PlayerController>();
+        itemData = null;
     }
     // 외부에서 플레이어 정보에 접근하고 싶은 경우가 있을 때, Player 스크립트를 통해 접근할 수 있도록 함.
 
@@ -45,8 +46,24 @@ public class Player : MonoBehaviour
         SetItem(newItem);
     }
 
-    private void DropItem(ItemData data)
+    public void DropItem(ItemData data)
     {
-        Instantiate(data.dropPrefab, dropPoint.position, Quaternion.LookRotation(transform.forward));
+        if (data != null && data.dropPrefab != null)
+        {
+            Instantiate(data.dropPrefab, dropPoint.position, Quaternion.LookRotation(transform.forward));
+        }
+        else
+        {
+            Debug.Log("dropItem error");
+        }
+    }
+
+    public void DropNowItem()
+    {
+        if(itemData != null)
+        {
+            DropItem(itemData);
+            ClearItem();
+        }
     }
 }

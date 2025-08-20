@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ClickBlock
+  - Undefined
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -16,9 +19,9 @@ TagManager:
   - Ground
   - Interactable
   - Equip
-  - JumpPad
-  - 
-  - 
+  - EquippedItem
+  - PlayerBody
+  - PBodyInvisable
   - 
   - 
   - 

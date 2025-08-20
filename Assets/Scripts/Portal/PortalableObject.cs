@@ -11,6 +11,9 @@ public class PortalableObject : MonoBehaviour
     // 현재 포탈 개수
     private int _inPortalCount = 0;
 
+    // 포탈 쿨타임을 나타낼 변수
+    public bool CanWarp { get; private set; } = true;
+
     // 포탈 종류
     private Portal _inPortal;
     private Portal _outPortal;
@@ -80,5 +83,20 @@ public class PortalableObject : MonoBehaviour
         var tmp = _inPortal;
         _inPortal = _outPortal;
         _outPortal = tmp;
+
+        StartCoroutine(PortalCooldown());
+    }
+
+    // 0.5초의 쿨타임을 적용하는 코루틴입니다.
+    private IEnumerator PortalCooldown()
+    {
+        // 즉시 워프 불가능 상태로 변경하여 연속 워프를 방지합니다.
+        CanWarp = false;
+
+        // 0.5초간 대기합니다.
+        yield return new WaitForSeconds(0.5f);
+
+        // 0.5초가 지나면 다시 워프 가능 상태로 되돌립니다.
+        CanWarp = true;
     }
 }

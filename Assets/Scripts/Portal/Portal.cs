@@ -50,7 +50,7 @@ public class Portal : MonoBehaviour
             // 포탈에 들어온 오브젝트의 월드 좌표를 포탈 기준의 로컬 좌표로 변환한다.
             Vector3 objectPosition = transform.InverseTransformPoint(portalObjects[i].transform.position);
 
-            if (objectPosition.z > 0.0f)
+            if (objectPosition.z > 0.0f && portalObjects[i].CanWarp)
             {
                 // 포탈을 넘어가면 Warp한다.
                 portalObjects[i].Warp();

@@ -34,7 +34,7 @@ Material:
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 348fa4d278c53ad4dacd07df1e63a248, type: 3}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 2.2519193}
+        m_Offset: {x: 0, y: 6.193593}
     - _MainTex2:
         m_Texture: {fileID: 2800000, guid: bef54341b6d21864c82d47f3bed4c7db, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -51,6 +51,6 @@ Material:
     - _RefractTexTiling: 1
     m_Colors:
     - _ChannelFactor: {r: -0.3281326, g: 0.5920941, b: 0.7360384, a: 0}
-    - _Color: {r: 0, g: 0.2542572, b: 1, a: 0.41960785}
+    - _Color: {r: 0, g: 0.8195262, b: 1, a: 0.41960785}
     - _SpeedStrength: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

@@ -71,6 +71,17 @@ public class Portal : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        var obj = other.GetComponent<PortalableObject>();
+
+        if (portalObjects.Contains(obj))
+        {
+            portalObjects.Remove(obj);
+            obj.ExitPortal(wallCollider);
+        }
+    }
+
     public bool PlacePortal(Collider wallCollider, Vector3 pos, Quaternion rot)
     {
         transform.position = pos;

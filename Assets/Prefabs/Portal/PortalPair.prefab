@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2425026979163322902}
   m_Layer: 0
   m_Name: OutLine
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,11 +100,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2, y: 1.15, z: 0.2}
+  m_Size: {x: 1.2, y: 1.15, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3736395506924805488
 GameObject:
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 2529585905317926964}
   m_Layer: 0
   m_Name: PortalPair
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 2752547270530975535}
   m_Layer: 0
   m_Name: Portal 1
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -238,7 +238,7 @@ GameObject:
   - component: {fileID: 7602797936599202710}
   m_Layer: 0
   m_Name: OutLine
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -325,11 +325,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2, y: 1.15, z: 0.2}
+  m_Size: {x: 1.2, y: 1.15, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8912482070115110202
 GameObject:
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 1714362428754658348}
   m_Layer: 0
   m_Name: Portal 2
-  m_TagString: Untagged
+  m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -19,6 +19,15 @@ public class PortalPlacement : MonoBehaviour
     {
         // 좌 혹은 우 클릭으로 다른 포탈 발사
         // FirePortal(0, transform.position, transform.forward, 500.0f);
+        if (Input.GetMouseButtonDown(0))
+        {
+            FirePortal(0, camera.transform.position, camera.transform.forward, 500.0f);
+        }
+        // 마우스 오른쪽 버튼 클릭 시 1번 포탈(주황색) 발사
+        else if (Input.GetMouseButtonDown(1))
+        {
+            FirePortal(1, camera.transform.position, camera.transform.forward, 500.0f);
+        }
     }
 
     // 포탈을 발사하는 함수

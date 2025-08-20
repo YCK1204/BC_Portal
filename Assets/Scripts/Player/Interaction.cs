@@ -12,11 +12,18 @@ public class Interaction : MonoBehaviour
     public LayerMask layerMask;
 
     public GameObject curInteractGameObject;
-    private IInteractable curInteractable;
 
     public TextMeshProUGUI promptText;
     private Camera camera; //강의에도 경고문구가 나오긴하는데 일단 보류해두고 추후 수정할 수 있는지 확인해보겠습니다.
     private Player player;
+
+    public float dropForward = 1f;
+
+    public Transform cube;
+
+    
+    private Transform carried;
+    private int carriedOriginalLayer = -1;
 
       
 
@@ -35,37 +42,87 @@ public class Interaction : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
         {
-            if(hit.collider.gameObject != curInteractGameObject)
+            
+            if (hit.collider.gameObject != curInteractGameObject)
             {
                 curInteractGameObject = hit.collider.gameObject;
-                curInteractable = hit.collider.GetComponent<IInteractable>();
-                promptText.gameObject.SetActive(false);
+                
             }
+            
         }
         else
         {
             curInteractGameObject = null;
-            curInteractable = null;
-            promptText.gameObject.SetActive(false);
         }
     }
 
-    private void SetPromptText()
-    {
-        promptText.gameObject.SetActive(true);
-        promptText.text = curInteractable.GetInteractPrompt();
-    }
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
-        //if (context.phase == InputActionPhase.Started && curInteractable != null)
-        {
-          
-        }
-        //else if (//InputActionPhase 키로 아이템 내려놓을 때)
-        {
+        if (!context.started) return;
 
+        if(curInteractGameObject && HasTagInParents(curInteractGameObject.transform, "Item"))
+            {
+            Transform itemRoot = curInteractGameObject.GetComponentInParent<Transform>();
+            if(carried == itemRoot)
+            {
+                DropCarried();
+                return;
+            }
+
+            if (carried) DropCarried();
+            PickUp(itemRoot);
+            return;
         }
-        
+
+        if(carried) DropCarried();
+
+
+    }
+
+    static bool HasTagInParents(Transform tr, string tag)
+    {
+        while (tr)
+        {
+            if (tr.CompareTag(tag)) return true;
+            tr = tr.parent;
+        }
+        return false;
+    }
+
+    void PickUp(Transform item)
+    {
+        if(item.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = true;
+            rb.detectCollisions = false;
+        }
+        var parent = cube ? cube : transform;
+        item.SetParent(parent, worldPositionStays: false);
+        item.localPosition = Vector3.zero;
+        item.localRotation = Quaternion.identity;
+        item.localScale = Vector3.one;
+
+        carried = item;
+    }
+
+    void DropCarried()
+    {
+        if (!carried) return;
+        var t = carried;
+        carried = null;
+
+        t.SetParent(null, true);
+        Vector3 pos = (player ?  player.transform.position : transform.position) + (player? player.transform.forward : transform.forward) * dropForward;
+        Quaternion rot = Quaternion.LookRotation((player ? player.transform.forward : transform.forward), Vector3.up);
+        t.SetPositionAndRotation(pos, rot);
+
+        if(t.TryGetComponent<Rigidbody>(out var rb))
+        {
+            rb.isKinematic = false;
+            rb.detectCollisions = true;
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
     }
 }

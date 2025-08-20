@@ -1607,6 +1607,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a6d12bf713830fa48b8d68b6faa53512, type: 3}
   - name: Turret_TrackRotate
     clip: {fileID: 8300000, guid: 9d2e581ee4adfa4459fb5d4249ee1001, type: 3}
+  - name: Laser_Hit
+    clip: {fileID: 8300000, guid: dc0959dc790f8d44896ad9a272c52b7b, type: 3}
 --- !u!4 &1287645573
 Transform:
   m_ObjectHideFlags: 0

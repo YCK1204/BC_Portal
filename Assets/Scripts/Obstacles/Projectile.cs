@@ -22,6 +22,7 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 데미지 관련 내용 추가
+        AudioManager.Instance.PlaySFX("Laser_Hit");
         if (hitEffectPrefab != null)
         {
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);

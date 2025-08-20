@@ -1,10 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCondition : MonoBehaviour
+public  interface IDamagable
+{
+    void TakePhysicalDamage(int damage);
+}
+
+public class PlayerCondition : MonoBehaviour, IDamagable
 {
     public Condition health;
+
+    public event Action onTakeDamage;
     // Start is called before the first frame update
     
 
@@ -22,5 +30,11 @@ public class PlayerCondition : MonoBehaviour
     public void Die()
     {
         Debug.Log("Die");
+    }
+
+    public void TakePhysicalDamage(int Damage)
+    {
+        health.Subtract(Damage);
+        onTakeDamage?.Invoke();
     }
 }

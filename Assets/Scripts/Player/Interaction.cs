@@ -18,6 +18,9 @@ public class Interaction : MonoBehaviour
     private Camera camera; //강의에도 경고문구가 나오긴하는데 일단 보류해두고 추후 수정할 수 있는지 확인해보겠습니다.
     private Player player;
 
+    private float _nextInteractTime = 0f;
+    [SerializeField] private float interactCooldown = 0.12f;
+
       
 
     // Start is called before the first frame update
@@ -58,13 +61,25 @@ public class Interaction : MonoBehaviour
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
-        //if (context.phase == InputActionPhase.Started && curInteractable != null)
-        {
-          
-        }
-        //else if (//InputActionPhase 키로 아이템 내려놓을 때)
-        {
+        if (!context.started) return;
+        if (Time.time < _nextInteractTime) return;
+        _nextInteractTime = Time.time + interactCooldown;
 
+        if (player == null) player = PlayerManager.Instance.Player;
+        if (curInteractable != null)
+        {
+            if(curInteractable is ItemObject io)
+            {
+                player.PickUpItem(io.transform, io.data);
+            }
+
+            curInteractGameObject = null;
+            curInteractable = null;
+            if (promptText) promptText.gameObject.SetActive(false);
+        }
+        else
+        {
+            if (player.HasItem) player.DropCarried();
         }
         
     }

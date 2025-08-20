@@ -36,7 +36,6 @@ public class PlayerController : PortalableObject
         //_rigidbody = GetComponent<Rigidbody>();
         aniController = GetComponentInChildren<AniController>();
 
-        //_rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY  | RigidbodyConstraints.FreezeRotationZ;
     }
 
     private void Start()

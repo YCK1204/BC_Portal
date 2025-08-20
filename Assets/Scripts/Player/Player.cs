@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
 
     [Header("Drop Setting")]
     public Transform dropPoint;
+    private GameObject equippedInstance;
 
     private void Awake()
     {
@@ -26,12 +27,25 @@ public class Player : MonoBehaviour
 
     public void SetItem(ItemData newItem)
     {
+
+        if (equippedInstance != null)
+        {
+            Destroy(equippedInstance);
+            equippedInstance = null;
+        }
         itemData = newItem;
+        equippedInstance = Instantiate(itemData.equipPrefab);
         OnItemChanged?.Invoke(itemData);
     }
 
     public void ClearItem()
     {
+
+        if (equippedInstance != null)
+        {
+            Destroy(equippedInstance);
+            equippedInstance = null;
+        }
         itemData = null;
         OnItemChanged?.Invoke(null);
     }

@@ -17,6 +17,9 @@ public class Interaction : MonoBehaviour
     public TextMeshProUGUI promptText;
     private Camera camera;
     private Player player;
+
+    private float _nextInteractTime = 0f;
+    [SerializeField] private float interactCooldown = 0.12f;
     
 
     // Start is called before the first frame update
@@ -57,25 +60,21 @@ public class Interaction : MonoBehaviour
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
+        if (!context.started) return;
+        if (Time.time < _nextInteractTime) return;
+        _nextInteractTime = Time.time + interactCooldown;
+
         if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
             curInteractable.OnInteract();
             curInteractGameObject = null;
             curInteractable = null;
-            promptText.gameObject.SetActive(false);
+            if(promptText) promptText.gameObject.SetActive(false);
         }
-        else
+        else if (player.HasItem)
         {
-            if(player == null) player = GetComponent<Player>();
-            if (player == null)
-            {
-                Debug.Log("[Interaction] Player not found; drop aborted.");
-                return;
-            }
-            if (player != null && player.HasItem)
-            {
-                player.DropNowItem();
-            }
+            player.DropNowItem();
         }
+        
     }
 }

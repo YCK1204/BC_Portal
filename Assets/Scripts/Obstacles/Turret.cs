@@ -26,6 +26,8 @@ public class Turret : ObstacleBase
 
     [SerializeField] private bool showGizmo = true; // 기즈모 on/off
 
+    public ParticleSystem MuzzleFlash;
+
 
     private void Awake()
     {
@@ -117,6 +119,9 @@ public class Turret : ObstacleBase
         Vector3 _direction = (target.position - firePoint.position).normalized; // 발사 방향
         Quaternion _rotation = Quaternion.LookRotation(_direction);
         _rotation *= Quaternion.Euler(90f,0,0); // 발사각도
+
+        if(MuzzleFlash != null)
+            MuzzleFlash.Play();
 
         GameObject _laser = Instantiate(laserPrefab, firePoint.position, _rotation); // 레이저 프리팹 생성
         Projectile _projectile = _laser.GetComponent<Projectile>();

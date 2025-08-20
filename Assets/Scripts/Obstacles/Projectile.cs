@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float lifeTime = 2f; // 발사체 지속시간
     [SerializeField] private float damage = 10f; // 발사체 데미지
 
+    public GameObject hitEffectPrefab; // 충돌 시 이펙트
     private Vector3 direction; // 발사체 방향
 
     private void Update()
@@ -21,6 +22,11 @@ public class Projectile : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // 데미지 관련 내용 추가
+        if (hitEffectPrefab != null)
+        {
+            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
+        }
+
         Destroy(gameObject);
     }
 

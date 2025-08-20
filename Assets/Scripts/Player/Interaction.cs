@@ -14,7 +14,7 @@ public class Interaction : MonoBehaviour
     public GameObject curInteractGameObject;
 
     public TextMeshProUGUI promptText;
-    private Camera camera; //강의에도 경고문구가 나오긴하는데 일단 보류해두고 추후 수정할 수 있는지 확인해보겠습니다.
+    public Camera camera;
     private Player player;
 
     public float dropForward = 1f;

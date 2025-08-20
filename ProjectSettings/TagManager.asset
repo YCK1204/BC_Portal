@@ -9,6 +9,7 @@ TagManager:
   - Portal
   - Item
   - Button
+  - Camera
   layers:
   - Default
   - TransparentFX

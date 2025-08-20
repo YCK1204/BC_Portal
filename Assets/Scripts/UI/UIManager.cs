@@ -11,6 +11,8 @@ public class UIManager : Singleton<UIManager>
 
     public bool isMenuOpen = false;
 
+    public Animator _potal;
+
     public Slider bgmSlider;
     public Slider sfxSlider;
 
@@ -56,5 +58,16 @@ public class UIManager : Singleton<UIManager>
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    public void PotalA()
+    {
+        _potal.SetTrigger("blue");
+        AudioManager.Instance.PlaySFX("Portal_In");
+    }
+    public void PotalB()
+    {
+        _potal.SetTrigger("orange");
+        AudioManager.Instance.PlaySFX("Portal_In");
     }
 }

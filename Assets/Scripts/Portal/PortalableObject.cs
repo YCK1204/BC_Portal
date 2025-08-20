@@ -87,6 +87,12 @@ public class PortalableObject : MonoBehaviour
         _inPortal = _outPortal;
         _outPortal = tmp;
 
+        // 포탈 종류 체크
+        if (_inPortal.portalID == "B")
+            UIManager.Instance.PotalA();
+        else if (_inPortal.portalID == "A")
+            UIManager.Instance.PotalB();
+
         _rigidbody.AddForce(outTransform.forward * warpEjectionForce, ForceMode.Impulse);
 
         StartCoroutine(PortalCooldown());

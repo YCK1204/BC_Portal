@@ -14,7 +14,6 @@ public class HPBar : MonoBehaviour
 
     public Animator _hp;
     public Animator _damage;
-    public Animator _potal;
 
     private float targetFill;
     private Color _color = Color.white;
@@ -25,16 +24,6 @@ public class HPBar : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(20f);
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            PotalA();
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            PotalB();
         }
 
         if (Input.GetKeyDown(KeyCode.F))
@@ -71,14 +60,5 @@ public class HPBar : MonoBehaviour
         SetHp(hp - damage);
         _hp.SetTrigger("damage");
         _damage.SetTrigger("damage");
-    }
-
-    public void PotalA()
-    {
-        _potal.SetTrigger("blue");
-    }
-    public void PotalB()
-    {
-        _potal.SetTrigger("orange");
     }
 }

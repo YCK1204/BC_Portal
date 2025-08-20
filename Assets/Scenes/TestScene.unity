@@ -8963,6 +8963,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2692970904949343008, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: m_Height
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692970904949343008, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: m_Radius
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038640973848435899, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: m_Drag
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4421992805449935183, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 1353341890}
+    - target: {fileID: 6597138061395066517, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7754467912690673941, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: airAcceleration
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7754467912690673941, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: warpEjectionForce
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7754467912690673941, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: groundAcceleration
+      value: 3000
+      objectReference: {fileID: 0}
     - target: {fileID: 8841467904427936749, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -18663,6 +18695,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2123414133598755704, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
   m_PrefabInstance: {fileID: 588768123}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1353341890 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7754467912690673941, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+  m_PrefabInstance: {fileID: 588768123}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1353341884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7581584c7ec0484b993e914eecda2df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1353527435
 PrefabInstance:
   m_ObjectHideFlags: 0

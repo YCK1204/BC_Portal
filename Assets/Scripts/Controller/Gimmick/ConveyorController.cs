@@ -39,7 +39,7 @@ public class ConveyorController : BaseGimmickController
     {
         _transforms.RemoveAll(t => t == null);
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (_transforms.Count == 0)
             return;

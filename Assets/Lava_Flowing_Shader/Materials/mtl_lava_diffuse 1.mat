@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mtl_lava_diffuse
+  m_Name: mtl_lava_diffuse 1
   m_Shader: {fileID: 4800000, guid: 036402a4b0d5f4342bbf1b572714f64e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -51,6 +51,6 @@ Material:
     - _RefractTexTiling: 1
     m_Colors:
     - _ChannelFactor: {r: -0.3281326, g: 0.5920941, b: 0.7360384, a: 0}
-    - _Color: {r: 0.015420318, g: 1, b: 0, a: 0.41960785}
+    - _Color: {r: 1, g: 0.08626084, b: 0, a: 0.41960785}
     - _SpeedStrength: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

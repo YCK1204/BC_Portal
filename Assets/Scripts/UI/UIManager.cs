@@ -9,7 +9,7 @@ public class UIManager : Singleton<UIManager>
     [Header("UI")]
     public Animator MenuAnimator;
 
-    private bool isMenuOpen = false;
+    public bool isMenuOpen = false;
 
     public Slider bgmSlider;
     public Slider sfxSlider;
@@ -30,12 +30,18 @@ public class UIManager : Singleton<UIManager>
             Debug.Log("ON");
             MenuAnimator.SetTrigger("Open");
             Time.timeScale = 0f;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         else
         {
             Debug.Log("OFF");
             MenuAnimator.SetTrigger("Close");
             Time.timeScale = 1f;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
@@ -47,5 +53,8 @@ public class UIManager : Singleton<UIManager>
         Debug.Log("OFF");
         MenuAnimator.SetTrigger("Close");
         Time.timeScale = 1f;
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

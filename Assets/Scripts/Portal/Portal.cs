@@ -52,7 +52,7 @@ public class Portal : MonoBehaviour
             // 포탈에 들어온 오브젝트의 월드 좌표를 포탈 기준의 로컬 좌표로 변환한다.
             Vector3 objectPosition = transform.InverseTransformPoint(portalObjects[i].transform.position);
 
-            if (objectPosition.z > 0.0f && portalObjects[i].CanWarp)
+            if (otherPortal != null && otherPortal.isPlaced && objectPosition.z > 0.0f && portalObjects[i].CanWarp)
             {
                 // 포탈을 넘어가면 Warp한다.
                 portalObjects[i].Warp();
@@ -67,9 +67,18 @@ public class Portal : MonoBehaviour
         // 닿은 오브젝트가 PortalableObject 을 가지고 있을 때 동작
         if (obj != null)
         {
-            // 포탈에 닿은 오브젝트 리스트에 추가
-            portalObjects.Add(obj);
-            obj.SetIsInPortal(this, otherPortal, wallCollider);
+            // 리스트에 추가해서 물체가 포탈에 닿아 있다는 사실을 기록한다.
+            if (!portalObjects.Contains(obj))
+            {
+                portalObjects.Add(obj);
+            }
+
+            // 반대 포탈이 활성화 되어 있을 때만
+            if (otherPortal != null && otherPortal.isPlaced)
+            {
+                // 포탈에 닿은 오브젝트 리스트에 추가
+                obj.SetIsInPortal(this, otherPortal, wallCollider);
+            }
         }
     }
 

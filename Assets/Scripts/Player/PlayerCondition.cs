@@ -5,7 +5,7 @@ using UnityEngine;
 
 public  interface IDamagable
 {
-    void TakePhysicalDamage(int damage);
+    void TakePhysicalDamage(float damage);
 }
 
 public class PlayerCondition : MonoBehaviour, IDamagable

@@ -49,6 +49,11 @@ public class Turret : ObstacleBase
         laserPointer.ClearTarget();
     }
 
+    private void Start()
+    {
+        Activate();
+    }
+
     private void Update()
     {
         RotateTurret();

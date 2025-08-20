@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 5110135598064092597}
   - component: {fileID: 5253012616974350865}
   - component: {fileID: 49361903707927006}
+  - component: {fileID: 9043502349786195184}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -303,11 +304,35 @@ MonoBehaviour:
     m_ActionId: 33cb42b3-1e22-45d7-a310-7fb93421dba1
     m_ActionName: Player/Crouch[/Keyboard/ctrl]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9043502349786195184}
+        m_TargetAssemblyTypeName: PortalPlacement, Assembly-CSharp
+        m_MethodName: OnFirePortal1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 797ee739-7a3b-404c-8dc3-a1807e883a9c
     m_ActionName: Player/Portal1[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9043502349786195184}
+        m_TargetAssemblyTypeName: PortalPlacement, Assembly-CSharp
+        m_MethodName: OnFirePortal2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 7f85c863-d662-4887-a4df-4e94336faa26
     m_ActionName: Player/Portal2[/Mouse/rightButton]
   - m_PersistentCalls:
@@ -346,7 +371,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7581584c7ec0484b993e914eecda2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 3
   jumpPower: 80
   groundLayerMask:
     serializedVersion: 2
@@ -363,7 +388,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123414133598755704}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9185320acb5ec674e9d74368fe1f6066, type: 3}
   m_Name: 
@@ -411,12 +436,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2123414133598755704}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d733a07fa6f9d45e483597fdcf252572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 0}
+--- !u!114 &9043502349786195184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123414133598755704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4efb923c80b4fc449a459b7859afea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  portals: {fileID: 0}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  mainCameraTransform: {fileID: 7546049658638438342}
 --- !u!1 &3158805530596417990
 GameObject:
   m_ObjectHideFlags: 0

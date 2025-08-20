@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class PlayerController : MonoBehaviour
+public class PlayerController : PortalableObject
 {
     [Header("Movement")]
     public float moveSpeed;
@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float jumpPower;
     public LayerMask groundLayerMask;
 
-    private Rigidbody _rigidbody;
+    //private Rigidbody _rigidbody;
 
     [Header("Look")]
     public Transform cameraContainer;
@@ -28,12 +28,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpCooldown = 0.1f;
     private float nextJumpTime;
 
+    public float rotationSpeed = 5f;
+
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody>();
+        base.Awake();
+        //_rigidbody = GetComponent<Rigidbody>();
         aniController = GetComponentInChildren<AniController>();
 
-        //_rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY  | RigidbodyConstraints.FreezeRotationZ;
     }
 
     private void Start()
@@ -53,6 +55,13 @@ public class PlayerController : MonoBehaviour
             jumpLocked = false;
         }
         wasGrounded = grounded;
+
+        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+        transform.rotation = targetRotation;
+
+        //중력보간
+        //Quaternion targetRotation = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
     private void FixedUpdate()
     {
@@ -61,7 +70,10 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        CameraLook();
+        if (!UIManager.Instance.isMenuOpen) // 메뉴 열리면 카메라 이동안함
+        {
+            CameraLook();
+        }
     }
 
     void Move() // 캐릭터가 움직임

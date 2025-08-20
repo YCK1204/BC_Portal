@@ -15,9 +15,10 @@ public class Interaction : MonoBehaviour
     private IInteractable curInteractable;
 
     public TextMeshProUGUI promptText;
-    private Camera camera;
+    private Camera camera; //강의에도 경고문구가 나오긴하는데 일단 보류해두고 추후 수정할 수 있는지 확인해보겠습니다.
     private Player player;
-    
+
+      
 
     // Start is called before the first frame update
     void Start()
@@ -57,25 +58,14 @@ public class Interaction : MonoBehaviour
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        //if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
-            curInteractable.OnInteract();
-            curInteractGameObject = null;
-            curInteractable = null;
-            promptText.gameObject.SetActive(false);
+          
         }
-        else
+        //else if (//InputActionPhase 키로 아이템 내려놓을 때)
         {
-            if(player == null) player = GetComponent<Player>();
-            if (player == null)
-            {
-                Debug.Log("[Interaction] Player not found; drop aborted.");
-                return;
-            }
-            if (player != null && player.HasItem)
-            {
-                player.DropNowItem();
-            }
+
         }
+        
     }
 }

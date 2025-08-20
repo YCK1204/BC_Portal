@@ -16,6 +16,7 @@ public class TitleUI : MonoBehaviour
     public Slider sfxSlider;
 
     public GameObject hpgauge;
+    public GameObject player;
 
     void Start()
     {
@@ -41,6 +42,8 @@ public class TitleUI : MonoBehaviour
         playerInput.enabled = true;
         yield return new WaitForSeconds(1f);
         hpgauge.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        player.SetActive(true);
     }
 
     public void OnClickContinue()

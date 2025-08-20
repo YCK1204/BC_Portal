@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 279991446228943049}
   - component: {fileID: 5110135598064092597}
   - component: {fileID: 5253012616974350865}
+  - component: {fileID: 49361903707927006}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -309,6 +310,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 7f85c863-d662-4887-a4df-4e94336faa26
     m_ActionName: Player/Portal2[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 913cf145-2ec9-4a2a-b1f9-65d2b946b8db
+    m_ActionName: Player/ESC[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -399,6 +404,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
+--- !u!114 &49361903707927006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123414133598755704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d733a07fa6f9d45e483597fdcf252572, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 0}
 --- !u!1 &3158805530596417990
 GameObject:
   m_ObjectHideFlags: 0

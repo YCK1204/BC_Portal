@@ -10451,7 +10451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7754467912690673941, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
       propertyPath: warpEjectionForce
-      value: 100
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7754467912690673941, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
       propertyPath: groundAcceleration
@@ -10503,7 +10503,7 @@ PrefabInstance:
       objectReference: {fileID: 1520754276}
     - target: {fileID: 9043502349786195184, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
       propertyPath: layerMask.m_Bits
-      value: 16385
+      value: 16384
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5953597601027668493, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
@@ -24278,7 +24278,7 @@ Transform:
   m_GameObject: {fileID: 1443597272}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 56.82, y: 10.78, z: -48.66}
+  m_LocalPosition: {x: 56.82, y: 10.78, z: -49.02}
   m_LocalScale: {x: 7, y: 6, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24669,9 +24669,17 @@ PrefabInstance:
       propertyPath: portalID
       value: B
       objectReference: {fileID: 0}
+    - target: {fileID: 622284218063029760, guid: b955289fc8ee12d44b297cb98fad848b, type: 3}
+      propertyPath: placementMask.m_Bits
+      value: 16384
+      objectReference: {fileID: 0}
     - target: {fileID: 1912019191029760864, guid: b955289fc8ee12d44b297cb98fad848b, type: 3}
       propertyPath: portalID
       value: A
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912019191029760864, guid: b955289fc8ee12d44b297cb98fad848b, type: 3}
+      propertyPath: placementMask.m_Bits
+      value: 16384
       objectReference: {fileID: 0}
     - target: {fileID: 3512994389064326740, guid: b955289fc8ee12d44b297cb98fad848b, type: 3}
       propertyPath: m_LocalPosition.x

@@ -14,6 +14,8 @@ public class Portal : MonoBehaviour
     [field: SerializeField]
     public Color portalColor { get; private set; }
 
+    public string portalID;
+
     // 설치 가능 레이어
     [SerializeField][Tooltip("포탈 설치 가능한 레이어")] private LayerMask placementMask;
 

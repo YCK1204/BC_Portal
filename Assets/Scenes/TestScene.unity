@@ -9420,7 +9420,6 @@ MonoBehaviour:
   delaySpeed: 3
   _hp: {fileID: 594377834}
   _damage: {fileID: 786079502}
-  _potal: {fileID: 127552007}
 --- !u!225 &594377833
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -21205,6 +21204,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 622284218063029760, guid: b955289fc8ee12d44b297cb98fad848b, type: 3}
+      propertyPath: portalID
+      value: B
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912019191029760864, guid: b955289fc8ee12d44b297cb98fad848b, type: 3}
+      propertyPath: portalID
+      value: A
+      objectReference: {fileID: 0}
     - target: {fileID: 3512994389064326740, guid: b955289fc8ee12d44b297cb98fad848b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -27830,6 +27837,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MenuAnimator: {fileID: 509890694}
   isMenuOpen: 0
+  _potal: {fileID: 127552007}
   bgmSlider: {fileID: 1039425457}
   sfxSlider: {fileID: 2064840080}
 --- !u!114 &1887619364
@@ -27929,6 +27937,8 @@ MonoBehaviour:
   sfxClipList:
   - name: Button
     clip: {fileID: 8300000, guid: 2fa0d1450df6dc3408529b9b6b24689e, type: 3}
+  - name: Portal_In
+    clip: {fileID: 8300000, guid: e64209a3c663626498d728201a3e848e, type: 3}
 --- !u!1001 &1888429376
 PrefabInstance:
   m_ObjectHideFlags: 0

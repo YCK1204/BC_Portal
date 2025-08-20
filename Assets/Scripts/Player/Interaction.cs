@@ -60,20 +60,13 @@ public class Interaction : MonoBehaviour
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-        if (Time.time < _nextInteractTime) return;
-        _nextInteractTime = Time.time + interactCooldown;
-
-        if (context.phase == InputActionPhase.Started && curInteractable != null)
+        //if (context.phase == InputActionPhase.Started && curInteractable != null)
         {
-            curInteractable.OnInteract();
-            curInteractGameObject = null;
-            curInteractable = null;
-            if(promptText) promptText.gameObject.SetActive(false);
+          
         }
-        else if (player.HasItem)
+        //else if (//InputActionPhase 키로 아이템 내려놓을 때)
         {
-            player.DropNowItem();
+
         }
         
     }

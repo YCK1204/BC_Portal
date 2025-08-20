@@ -21,7 +21,7 @@ public class HPBar : MonoBehaviour
 
     void Update()
     {
-        //테스트용 데미지
+        //테스트용 데미지 or 포탈
         if (Input.GetKeyDown(KeyCode.Z))
         {
             TakeDamage(20f);

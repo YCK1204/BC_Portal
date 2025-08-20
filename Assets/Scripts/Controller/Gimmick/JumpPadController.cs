@@ -21,6 +21,8 @@ public class JumpPadController : BaseGimmickController
     List<Collider> _objects = new List<Collider>();
     List<Vector3> Steps = new List<Vector3>();
     Collider _collider;
+    [SerializeField]
+    bool AutoJumping = false;
     enum JumpPadState
     {
         Default,
@@ -103,7 +105,7 @@ public class JumpPadController : BaseGimmickController
                 t = Mathf.SmoothStep(0, 1, t);
                 transform.localScale = Vector3.Lerp(Steps[i], Steps[i + 1], t);
                 time += Time.deltaTime;
-                yield return null;
+                yield return new WaitForFixedUpdate();
             }
         }
         transform.localScale = _deafultScale;
@@ -112,6 +114,8 @@ public class JumpPadController : BaseGimmickController
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if (AutoJumping && _coJump == null)
+            _coJump = StartCoroutine(PlayJumpPadAnim());
         if ((int)_state % 2 == 0)
             return;
         if (_objects.Contains(collision.collider))

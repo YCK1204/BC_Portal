@@ -116,6 +116,21 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
+    public void PlayLoopSFX(string name)
+    {
+        if (sfxClips.ContainsKey(name))
+        {
+            AudioClip _clip = sfxClips[name];
+            AudioSource _player = sfxPlayers[sfxChannelIndex];
+
+            _player.clip = _clip;
+            _player.loop = true;
+            _player.Play();
+
+            sfxChannelIndex = (sfxChannelIndex + 1) % sfxPlayers.Length;
+        }
+    }
+
     public void PlayBGM(string name)
     {
         if (bgmClips.ContainsKey(name))

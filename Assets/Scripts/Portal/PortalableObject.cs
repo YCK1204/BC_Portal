@@ -15,8 +15,8 @@ public class PortalableObject : MonoBehaviour
     private Portal _inPortal;
     private Portal _outPortal;
 
-    private Rigidbody _rigidbody;
-    private Collider _collider;
+    protected Rigidbody _rigidbody;
+    protected Collider _collider;
 
     private static readonly Quaternion halfTurn = Quaternion.Euler(0f, 180.0f, 0f);
 

@@ -9,18 +9,13 @@ public class PortalPlacement : MonoBehaviour
     [SerializeField] private PortalPair portals;
     [SerializeField] private LayerMask layerMask;
 
-    private Camera camera;
-
-    private void Awake()
-    {
-        camera = Camera.main;
-    }
+    [SerializeField] private Transform mainCameraTransform;
 
     public void OnFirePortal1(InputAction.CallbackContext context)
     {
         if(context.phase == InputActionPhase.Started)
         {
-            FirePortal(0, camera.transform.position, camera.transform.forward, 500.0f);
+            FirePortal(0, mainCameraTransform.transform.position, mainCameraTransform.transform.forward, 500.0f);
         }
     }
 
@@ -28,7 +23,7 @@ public class PortalPlacement : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            FirePortal(1, camera.transform.position, camera.transform.forward, 500.0f);
+            FirePortal(1, mainCameraTransform.transform.position, mainCameraTransform.transform.forward, 500.0f);
         }
     }
 
@@ -44,7 +39,7 @@ public class PortalPlacement : MonoBehaviour
                 return;
             }
             // 카메라 방향을 기준으로 포탈의 회전 값을 계산한다. (우선 현재 카메라의 회전 값을 가져온다.)
-            var cameraRotation = camera.transform.rotation;
+            var cameraRotation = mainCameraTransform.transform.rotation;
             // 카메라의 로컬 오른족 방향이 월드 공간에서 어느 방향인지 확인한다.
             var portalRight = cameraRotation * Vector3.right;
 

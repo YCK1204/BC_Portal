@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static UnityEditor.SceneView;
 
 public class PortalPlacement : MonoBehaviour
@@ -8,17 +9,22 @@ public class PortalPlacement : MonoBehaviour
     [SerializeField] private PortalPair portals;
     [SerializeField] private LayerMask layerMask;
 
-    private Camera camera;
+    [SerializeField] private Transform mainCameraTransform;
 
-    private void Awake()
+    public void OnFirePortal1(InputAction.CallbackContext context)
     {
-        camera = Camera.main;
+        if(context.phase == InputActionPhase.Started)
+        {
+            FirePortal(0, mainCameraTransform.transform.position, mainCameraTransform.transform.forward, 500.0f);
+        }
     }
 
-    private void Update()
+    public void OnFirePortal2(InputAction.CallbackContext context)
     {
-        // 좌 혹은 우 클릭으로 다른 포탈 발사
-        // FirePortal(0, transform.position, transform.forward, 500.0f);
+        if (context.phase == InputActionPhase.Started)
+        {
+            FirePortal(1, mainCameraTransform.transform.position, mainCameraTransform.transform.forward, 500.0f);
+        }
     }
 
     // 포탈을 발사하는 함수
@@ -33,7 +39,7 @@ public class PortalPlacement : MonoBehaviour
                 return;
             }
             // 카메라 방향을 기준으로 포탈의 회전 값을 계산한다. (우선 현재 카메라의 회전 값을 가져온다.)
-            var cameraRotation = camera.transform.rotation;
+            var cameraRotation = mainCameraTransform.transform.rotation;
             // 카메라의 로컬 오른족 방향이 월드 공간에서 어느 방향인지 확인한다.
             var portalRight = cameraRotation * Vector3.right;
 

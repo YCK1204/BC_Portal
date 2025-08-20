@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ClickBlock
+  - Undefined
+  - Portal
+  - Item
+  - Button
   layers:
   - Default
   - TransparentFX
@@ -11,6 +16,15 @@ TagManager:
   - 
   - Water
   - UI
+  - Player
+  - SwitchBox
+  - Ground
+  - Interactable
+  - Equip
+  - EquippedItem
+  - PlayerBody
+  - PBodyInvisable
+  - PortalWall
   - 
   - 
   - 
@@ -27,16 +41,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - projectile
   m_SortingLayers:
   - name: Default
     uniqueID: 0

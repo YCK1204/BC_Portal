@@ -9,7 +9,8 @@ public class PlayerController : PortalableObject
     private Vector2 curMovementInput;
     public float jumpPower;
     public LayerMask groundLayerMask;
-
+    [SerializeField] private float groundAcceleration = 200f; // 지상에서의 가속도
+    [SerializeField] private float airAcceleration = 100f;   // 공중에서의 가속도
     //private Rigidbody _rigidbody;
 
     [Header("Look")]
@@ -28,33 +29,36 @@ public class PlayerController : PortalableObject
     [SerializeField] private float jumpCooldown = 0.1f;
     private float nextJumpTime;
 
-    private void Awake()
+
+    protected override void Awake()
+
     {
         base.Awake();
         //_rigidbody = GetComponent<Rigidbody>();
         aniController = GetComponentInChildren<AniController>();
 
-        //_rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY  | RigidbodyConstraints.FreezeRotationZ;
     }
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        wasGrounded = IsGrounded();
-        jumpLocked = !wasGrounded;
-
+        //wasGrounded = IsGrounded();
+        //jumpLocked = !wasGrounded;
     }
 
-    private void Update()
-    {
-        bool grounded = IsGrounded();
-        if(grounded && !wasGrounded)
-        {
-            aniController.JumpEnd();
-            jumpLocked = false;
-        }
-        wasGrounded = grounded;
-    }
+
+    //private void Update()
+    //{
+    //    bool grounded = IsGrounded();
+    //    if(grounded && !wasGrounded)
+    //    {
+    //        aniController.JumpEnd();
+    //        jumpLocked = false;
+    //    }
+    //    wasGrounded = grounded;
+    //}
+
+
     private void FixedUpdate()
     {
         Move();
@@ -62,17 +66,38 @@ public class PlayerController : PortalableObject
 
     private void LateUpdate()
     {
-        CameraLook();
+        if (!UIManager.Instance.isMenuOpen) // 메뉴 열리면 카메라 이동안함
+        {
+            CameraLook();
+        }
     }
 
     void Move() // 캐릭터가 움직임
     {
-        Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
-        if (dir.sqrMagnitude > 1f) dir.Normalize(); // 대각선에서도 움직임값 1 유지
-        dir *= moveSpeed;
-        dir.y = _rigidbody.velocity.y;
+        //Vector3 dir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
+        //if (dir.sqrMagnitude > 1f) dir.Normalize(); // 대각선에서도 움직임값 1 유지
+        //dir *= moveSpeed;
+        //dir.y = _rigidbody.velocity.y;
 
-        _rigidbody.velocity = dir;
+        //_rigidbody.velocity = dir;
+        //aniController.Move(curMovementInput);
+
+        // 입력 방향 계산
+        Vector3 inputDir = transform.forward * curMovementInput.y + transform.right * curMovementInput.x;
+        if (inputDir.sqrMagnitude > 1f) inputDir.Normalize();
+
+        // 현재 수평 속도 계산
+        Vector3 horizontalVel = new Vector3(_rigidbody.velocity.x, 0, _rigidbody.velocity.z);
+
+        // 목표 속도에 도달하지 않았을 때만 힘을 추가한다.
+        if( horizontalVel.magnitude < moveSpeed)
+        {
+            // 플레이어가 현재 땅에 있는지 공중에 있는지 확인
+            float currentPlayerAcceleration = IsGrounded() ? groundAcceleration : airAcceleration;
+            // 플레이어 상태에 따라 힘을 추가
+            _rigidbody.AddForce(inputDir * currentPlayerAcceleration);
+        }
+
         aniController.Move(curMovementInput);
     }
 
@@ -104,22 +129,23 @@ public class PlayerController : PortalableObject
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started)
+        if(context.phase == InputActionPhase.Started && IsGrounded())
         {
-            jumpHeld = true;
-            if (IsGrounded() && !jumpLocked && Time.time > nextJumpTime)
-            {
-                _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-                aniController.Jump();
-                jumpLocked = true;
-                nextJumpTime = Time.time + jumpCooldown;
-            }
-            
+            //jumpHeld = true;
+            //if (IsGrounded() && !jumpLocked && Time.time > nextJumpTime)
+            //{
+            //    _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            //    aniController.Jump();
+            //    jumpLocked = true;
+            //    nextJumpTime = Time.time + jumpCooldown;
+            //}
+            _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            aniController.Jump();
         }
-        else if (context.phase == InputActionPhase.Canceled)
-        {
-            jumpHeld = false;
-        }
+        //else if (context.phase == InputActionPhase.Canceled)
+        //{
+        //    jumpHeld = false;
+        //}
     }
 
     bool IsGrounded()

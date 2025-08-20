@@ -14,6 +14,8 @@ public class Portal : MonoBehaviour
     [field: SerializeField]
     public Color portalColor { get; private set; }
 
+    public string portalID;
+
     // 설치 가능 레이어
     [SerializeField][Tooltip("포탈 설치 가능한 레이어")] private LayerMask placementMask;
 
@@ -50,7 +52,7 @@ public class Portal : MonoBehaviour
             // 포탈에 들어온 오브젝트의 월드 좌표를 포탈 기준의 로컬 좌표로 변환한다.
             Vector3 objectPosition = transform.InverseTransformPoint(portalObjects[i].transform.position);
 
-            if (objectPosition.z > 0.0f)
+            if (objectPosition.z > 0.0f && portalObjects[i].CanWarp)
             {
                 // 포탈을 넘어가면 Warp한다.
                 portalObjects[i].Warp();

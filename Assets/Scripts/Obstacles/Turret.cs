@@ -159,7 +159,7 @@ public class Turret : ObstacleBase
     Quaternion _rotation = Quaternion.LookRotation(_direction) * Quaternion.Euler(90f, 0f, 0f);
 
     // 사운드 및 이펙트 재생
-    AudioManager.Instance.PlaySFX("TurretFire");
+    AudioManager.Instance.PlaySFX("Turret_Fire");
     MuzzleFlash?.Play();
 
     // 레이저 생성 및 초기화

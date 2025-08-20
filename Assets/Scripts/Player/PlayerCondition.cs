@@ -32,7 +32,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
         Debug.Log("Die");
     }
 
-    public void TakePhysicalDamage(int Damage)
+    public void TakePhysicalDamage(float Damage)
     {
         health.Subtract(Damage);
         onTakeDamage?.Invoke();

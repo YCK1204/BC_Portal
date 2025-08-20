@@ -11,6 +11,9 @@ public class PortalableObject : MonoBehaviour
     // 현재 포탈 개수
     private int _inPortalCount = 0;
 
+    // 포탈에서 나올 때 추가해줄 힘 변수
+    [SerializeField] private float warpEjectionForce = 10f;
+
     // 포탈 쿨타임을 나타낼 변수
     public bool CanWarp { get; private set; } = true;
 
@@ -89,6 +92,8 @@ public class PortalableObject : MonoBehaviour
             UIManager.Instance.PotalA();
         else if (_inPortal.portalID == "A")
             UIManager.Instance.PotalB();
+
+        _rigidbody.AddForce(outTransform.forward * warpEjectionForce, ForceMode.Impulse);
 
         StartCoroutine(PortalCooldown());
     }

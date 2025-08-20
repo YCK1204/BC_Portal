@@ -28,6 +28,8 @@ public class PlayerController : PortalableObject
     [SerializeField] private float jumpCooldown = 0.1f;
     private float nextJumpTime;
 
+    public float rotationSpeed = 5f;
+
     private void Awake()
     {
         base.Awake();
@@ -53,6 +55,13 @@ public class PlayerController : PortalableObject
             jumpLocked = false;
         }
         wasGrounded = grounded;
+
+        Quaternion targetRotation = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+        transform.rotation = targetRotation;
+
+        //중력보간
+        //Quaternion targetRotation = Quaternion.FromToRotation(transform.up, Vector3.up) * transform.rotation;
+        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
     private void FixedUpdate()
     {
@@ -61,7 +70,10 @@ public class PlayerController : PortalableObject
 
     private void LateUpdate()
     {
-        CameraLook();
+        if (!UIManager.Instance.isMenuOpen) // 메뉴 열리면 카메라 이동안함
+        {
+            CameraLook();
+        }
     }
 
     void Move() // 캐릭터가 움직임

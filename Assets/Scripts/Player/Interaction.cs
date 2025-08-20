@@ -23,7 +23,6 @@ public class Interaction : MonoBehaviour
 
     
     private Transform carried;
-    private int carriedOriginalLayer = -1;
 
       
 

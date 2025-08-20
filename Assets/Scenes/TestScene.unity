@@ -24385,71 +24385,10 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5725000371507048362, guid: b2452a5c2cd649a4db9eebcd16f7b155, type: 3}
   m_PrefabInstance: {fileID: 1664066763}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1668134421
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1257776932}
-    m_Modifications:
-    - target: {fileID: 1589909508595142, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_Name
-      value: GlassTank1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -373.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -258.21133
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -12.141104
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4993132688394796359, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-      propertyPath: linkedGimmicks.Array.data[0]
-      value: 
-      objectReference: {fileID: 1201313580}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
 --- !u!4 &1668134430 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4302838756563234, guid: 9c497fb69241f2244b41ccc375bc8606, type: 3}
-  m_PrefabInstance: {fileID: 1668134421}
+  m_CorrespondingSourceObject: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+  m_PrefabInstance: {fileID: 5389773437652530362}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1671944251
 PrefabInstance:
@@ -32462,6 +32401,67 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 30, y: 2, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &5389773437652530362
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1257776932}
+    m_Modifications:
+    - target: {fileID: 4045709415062732358, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: linkedGimmicks.Array.data[0]
+      value: 
+      objectReference: {fileID: 1201313580}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -373.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -258.21133
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.141104
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9034605226894662179, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9037513877785534151, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
+      propertyPath: m_Name
+      value: GlassTank1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 515e2f141fa6ea14caf082c5bdea6f98, type: 3}
 --- !u!1 &6725038535294079043
 GameObject:
   m_ObjectHideFlags: 0

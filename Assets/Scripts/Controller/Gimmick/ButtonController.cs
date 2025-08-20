@@ -25,7 +25,6 @@ namespace Gimmick.Btn
     {
         public List<TriggerData> DataList = new List<TriggerData>();
     }
-
     public class ButtonController : PositioningObjectController
     {
         [SerializeField]
@@ -62,13 +61,6 @@ namespace Gimmick.Btn
             if (_coPositioning != null)
                 StopCoroutine(_coPositioning);
             _coPositioning = StartCoroutine(CoMoveAt(From));
-        }
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Enter();
-            }
         }
     }
 }

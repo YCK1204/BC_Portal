@@ -61,7 +61,10 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        CameraLook();
+        if (!UIManager.Instance.isMenuOpen) // 메뉴 열리면 카메라 이동안함
+        {
+            CameraLook();
+        }
     }
 
     void Move() // 캐릭터가 움직임

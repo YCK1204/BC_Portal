@@ -63,7 +63,7 @@ public class FlowZoneController : BaseGimmickController
         {
             case FlowZoneControllType.Reserve:
                 FlowType = (FlowZoneType)(((int)FlowType + 3) % 6);
-                _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType] * FlowSpeed;
+                _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType];
                 break;
             case FlowZoneControllType.StopOrContinue:
                 _stopOrContinue = !_stopOrContinue;
@@ -74,7 +74,7 @@ public class FlowZoneController : BaseGimmickController
                 }
                 else
                 {
-                    _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType] * FlowSpeed;
+                    _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType];
                     _collider.enabled = true;
                 }
                 break;
@@ -88,7 +88,7 @@ public class FlowZoneController : BaseGimmickController
         _collider = GetComponent<Collider>();
         _scrollingUVs = GetComponent<ScrollingUVs_Layers>();
         for (int i = 0; i < _matFlowDirections.Length; i++)
-            _matFlowDirections[i] *= ScrollingSpeed;
+            _matFlowDirections[i] *= FlowSpeed;
         _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType];
         foreach (var collider in IgnoreColliders)
         {

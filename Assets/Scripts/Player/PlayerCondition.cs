@@ -19,11 +19,14 @@ public class PlayerCondition : MonoBehaviour, IDamagable
     float currentTime = 0;
     float fadeoutTime = 2;
 
+
     private StageManager stageManager;
+    private SaveManager saveManager;
 
     void Awake()
     {
         stageManager = StageManager.Instance;
+        saveManager = SaveManager.Instance;
     }
 
     // Update is called once per frame
@@ -59,14 +62,16 @@ public class PlayerCondition : MonoBehaviour, IDamagable
             Panel.color = alpha;
             yield return null;
         }
-        
-        
 
+
+        saveManager.LoadGame();
         stageManager.RespawnPlayer(player.gameObject);
         health.curValue = health.maxValue;
-        
+        foreach (var p in FindObjectsOfType<Portal>(false))
+            p.RemovePortal();
 
-        
+
+
         while (alpha.a > 0)
         {
             currentTime += Time.deltaTime / fadeoutTime;

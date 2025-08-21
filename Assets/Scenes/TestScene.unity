@@ -941,7 +941,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5725000371507048362, guid: b2452a5c2cd649a4db9eebcd16f7b155, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -373.1648
+      value: -373.11
       objectReference: {fileID: 0}
     - target: {fileID: 5725000371507048362, guid: b2452a5c2cd649a4db9eebcd16f7b155, type: 3}
       propertyPath: m_LocalPosition.y
@@ -25262,6 +25262,7 @@ MonoBehaviour:
   Speed: 5
   AutoSetFrom: 1
   IgnoreLayers: []
+  RequireCount: 1
 --- !u!1001 &1202134644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39469,7 +39470,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5725000371507048362, guid: b2452a5c2cd649a4db9eebcd16f7b155, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -373.1648
+      value: -373.11
       objectReference: {fileID: 0}
     - target: {fileID: 5725000371507048362, guid: b2452a5c2cd649a4db9eebcd16f7b155, type: 3}
       propertyPath: m_LocalPosition.y
@@ -40521,6 +40522,7 @@ MonoBehaviour:
   sfxSlider: {fileID: 734031110}
   hpgauge: {fileID: 594377830}
   player: {fileID: 2123414133111355395}
+  intro: {fileID: 1887619360}
   continueButton: {fileID: 1303538117}
 --- !u!114 &1887619363
 MonoBehaviour:
@@ -42371,6 +42373,7 @@ MonoBehaviour:
   Speed: 5
   AutoSetFrom: 1
   IgnoreLayers: []
+  RequireCount: 1
 --- !u!1001 &1989726561
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43227,6 +43230,7 @@ MonoBehaviour:
   Speed: 5
   AutoSetFrom: 1
   IgnoreLayers: []
+  RequireCount: 1
 --- !u!4 &2029933090 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5725000371507048362, guid: b2452a5c2cd649a4db9eebcd16f7b155, type: 3}

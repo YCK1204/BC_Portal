@@ -9,8 +9,8 @@ public class HPBar : MonoBehaviour
     public Image delayHpBar;
     public float startValue = 100;
     public float curValue = 100;
-    public float passiveValue = 100;
-    public float maxValue = 1;
+    public float maxValue = 100;
+    public float passiveValue = 1;
 
 
     public float Speed = 5f;

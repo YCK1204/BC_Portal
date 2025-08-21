@@ -38,21 +38,17 @@ public class Interaction : MonoBehaviour
     {
         Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;
-        Debug.Log("Update good");
         if(Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
         {
-            Debug.Log("RayCast good");
             if (hit.collider.gameObject != curInteractGameObject)
             {
                 curInteractGameObject = hit.collider.gameObject;
-                Debug.Log("gameobject good");
             }
             
         }
         else
         {
             curInteractGameObject = null;
-            Debug.Log("else good");
         }
     }
 

@@ -17,6 +17,7 @@ public class TitleUI : MonoBehaviour
 
     public GameObject hpgauge;
     public GameObject player;
+    public GameObject intro;
 
     public Button continueButton;
 
@@ -70,6 +71,7 @@ public class TitleUI : MonoBehaviour
         hpgauge.SetActive(true);
         yield return new WaitForSeconds(1f);
         player.SetActive(true);
+        intro.SetActive(false);
     }
 
     IEnumerator LoadStart()
@@ -83,6 +85,7 @@ public class TitleUI : MonoBehaviour
         playerInput.enabled = true;
         yield return new WaitForSeconds(0.5f);
         player.SetActive(true);
+        intro.SetActive(false);
         StageManager.Instance.RespawnPlayer(player);
         yield return new WaitForSeconds(2f);
         hpgauge.SetActive(true);

@@ -25,7 +25,6 @@ public class PlayerController : PortalableObject
     [Header("Jump")]
     private bool wasGrounded;
     private bool jumpLocked;
-    private bool jumpHeld;
     [SerializeField] private float jumpCooldown = 0.1f;
     private float nextJumpTime;
     public float rotationSpeed = 5f;
@@ -137,7 +136,7 @@ public class PlayerController : PortalableObject
     {
         if(context.phase == InputActionPhase.Started && IsGrounded())
         {
-            jumpHeld = true;
+            
             if (IsGrounded() && !jumpLocked && Time.time > nextJumpTime)
             {
                 _rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
@@ -148,10 +147,7 @@ public class PlayerController : PortalableObject
             //_rigidbody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             //aniController.Jump();
         }
-        else if (context.phase == InputActionPhase.Canceled)
-        {
-            jumpHeld = false;
-        }
+
     }
 
     bool IsGrounded()

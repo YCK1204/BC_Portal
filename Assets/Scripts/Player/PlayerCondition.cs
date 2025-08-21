@@ -59,14 +59,14 @@ public class PlayerCondition : MonoBehaviour, IDamagable
             Panel.color = alpha;
             yield return null;
         }
-        Debug.Log("fadeout 종료");
+        
         
 
         stageManager.RespawnPlayer(player.gameObject);
         health.curValue = health.maxValue;
-        Debug.Log("리스폰 종료");
+        
 
-        Debug.Log("fadeout 안착");
+        
         while (alpha.a > 0)
         {
             currentTime += Time.deltaTime / fadeoutTime;
@@ -74,7 +74,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
             Panel.color = alpha;
             yield return null;
         }
-        Debug.Log("fadein 종료");
+        
 
 
 

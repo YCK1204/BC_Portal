@@ -121,8 +121,14 @@ public class Turret : ObstacleBase
         }
         else
         {
-            Vector3 _direction = target.position - turretHead.position;
-            return Quaternion.LookRotation(_direction);
+            if(Camera.main != null)
+            {
+                Vector3 CameraPos = Camera.main.transform.position;
+                CameraPos.y -= 1.0f;
+                Vector3 _direction = CameraPos - turretHead.position;
+                return Quaternion.LookRotation(_direction);
+            }
+            return turretHead.rotation;
         }
     }
 
@@ -135,22 +141,13 @@ public class Turret : ObstacleBase
     }
 
     // 터렛 레이저 포인터 작동
-    // 대기 모드에서는 OFF, 추적 상태에서는 타겟이 일정각도 안으로 들어와야 ON
     private void HandleLaserPointer(Quaternion targetRotation)
     {
         if (target == null) return;
 
-        float _angleToTarget = Quaternion.Angle(turretHead.rotation, targetRotation);
-
-        if (_angleToTarget < 5f)
-        {
-            laserPointer.SetTarget(target);
-            Fire();
-        }
-        else
-        {
-            laserPointer.ClearTarget();
-        }
+        laserPointer.Activate();
+        laserPointer.SetTarget(Camera.main.transform);
+        Fire();
     }
 
     public void Fire()
@@ -159,8 +156,10 @@ public class Turret : ObstacleBase
     if (target == null || Time.time < lastFireTime + fireCooldown)
         return;
 
-    // 발사 방향 및 회전 계산
-    Vector3 _direction = (target.position - firePoint.position).normalized;
+        // 발사 방향 및 회전 계산
+        Vector3 CameraPos = Camera.main.transform.position;
+        CameraPos.y -= 1.0f;
+        Vector3 _direction = (CameraPos - firePoint.position).normalized;
     Quaternion _rotation = Quaternion.LookRotation(_direction) * Quaternion.Euler(90f, 0f, 0f);
 
     // 사운드 및 이펙트 재생
@@ -174,7 +173,7 @@ public class Turret : ObstacleBase
 
     // 마지막 발사 시간 갱신
     lastFireTime = Time.time;
-
+  
     }
 
     private void OnDrawGizmos()

@@ -65,6 +65,7 @@ public class StageManager : Singleton<StageManager>
     // 해당 스테이지를 클리어 했을 때 동작하는 메서드
     private void StageCleared(int clearedStageId)
     {
+        Debug.Log($"<color=cyan>[StageManager]</color> 이벤트 수신: 스테이지 {clearedStageId} 클리어 요청을 받았습니다.");
         SaveData saveData = SaveManager.Instance.saveData;
 
         if (!saveData.clearedStagesIndex.Contains(clearedStageId))
@@ -75,6 +76,7 @@ public class StageManager : Singleton<StageManager>
         // 마지막 클리어 스테이지 번호를 갱신하고 저장한다.
         saveData.lastClearStageIndex = clearedStageId + 1;
         SaveManager.Instance.SaveGame();
+        Debug.Log($"<color=green>[StageManager]</color> 스테이지 {clearedStageId} 클리어 정보 저장을 완료했습니다.");
     }
 
     public void RespawnPlayer()

@@ -2,9 +2,9 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [Header("Projectile Settings")]
-    [SerializeField] private float speed = 15f; // 발사체 속도
-    [SerializeField] private float lifeTime = 2f; // 발사체 지속시간
-    [SerializeField] private float damage = 10f; // 발사체 데미지
+    private float speed = 23f; // 발사체 속도
+    private float lifeTime = 2f; // 발사체 지속시간
+    private float damage = 40f; // 발사체 데미지
 
     public GameObject hitEffectPrefab; // 충돌 시 이펙트
     private Vector3 direction; // 발사체 방향

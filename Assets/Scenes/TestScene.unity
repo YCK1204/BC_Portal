@@ -10540,6 +10540,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 49361903707927006, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
+      propertyPath: health
+      value: 
+      objectReference: {fileID: 594377832}
     - target: {fileID: 279991446228943049, guid: 0f3f0d28963039046a0d8aba86d42eee, type: 3}
       propertyPath: cube
       value: 
@@ -10831,8 +10835,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 851988089}
   delayHpBar: {fileID: 533590678}
-  hp: 100
-  maxHp: 100
+  startValue: 100
+  curValue: 100
+  passiveValue: 100
+  maxValue: 1
   Speed: 5
   delaySpeed: 3
   _hp: {fileID: 594377834}

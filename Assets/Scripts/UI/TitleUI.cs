@@ -63,18 +63,33 @@ public class TitleUI : MonoBehaviour
         yield return new WaitForSeconds(5f);
         uiManager.enabled = true;
         playerInput.enabled = true;
+        StageManager.Instance.RespawnPlayer(player);
         yield return new WaitForSeconds(1f);
         hpgauge.SetActive(true);
         yield return new WaitForSeconds(1f);
         player.SetActive(true);
+    }
+
+    IEnumerator LoadStart()
+    {
+        AudioManager.Instance.PlaySFX("Button");
+        yield return new WaitForSeconds(1f);
+        AudioManager.Instance.StopBGM("Title");
+        AudioManager.Instance.PlayBGM("InGame");
+        uiManager.enabled = true;
+        playerInput.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+        player.SetActive(true);
         StageManager.Instance.RespawnPlayer(player);
+        yield return new WaitForSeconds(2f);
+        hpgauge.SetActive(true);
     }
 
     public void OnClickContinue()
     {
         //최근 세이브로 게임 시작
-        introAnimator.SetBool("NEW_GAME", false); // 새 게임과 동일한 애니메이션 사용
-        StartCoroutine(GameStart());
+        introAnimator.SetBool("LOAD_GAME", true);
+        StartCoroutine(LoadStart());
     }
 
     public void OnClickSettings()

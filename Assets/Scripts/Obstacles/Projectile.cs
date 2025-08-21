@@ -21,7 +21,11 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 데미지 관련 내용 추가
+        GameObject _target = other.gameObject;
+        if(LayerMask.LayerToName(_target.layer) == "Player")
+        {
+            PlayerManager.Instance.Player.condition.TakePhysicalDamage(damage);
+        }
         AudioManager.Instance.PlaySFX("Laser_Hit");
         if (hitEffectPrefab != null)
         {

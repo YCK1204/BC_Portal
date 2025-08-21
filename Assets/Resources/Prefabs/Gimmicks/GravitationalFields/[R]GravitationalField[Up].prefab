@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2084564490434125329}
   - component: {fileID: 3638710228267498981}
   - component: {fileID: 8542165260235705949}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: '[R]GravitationalField[Up]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}

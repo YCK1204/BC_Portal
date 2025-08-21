@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2084564490434125329}
   - component: {fileID: 3638710228267498981}
   - component: {fileID: 8542165260235705949}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: '[R]GravitationalField[Backward]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28123abdfb14a5849a029a9074200608, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FlowType: 5
+  FlowType: 0
   FlowMatrials: []
   ScrollingSpeed: 3
   PullSpeed: 2

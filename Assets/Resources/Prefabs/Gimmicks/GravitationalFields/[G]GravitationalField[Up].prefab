@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2084564490434125329}
   - component: {fileID: 3638710228267498981}
   - component: {fileID: 8542165260235705949}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: '[G]GravitationalField[Up]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,4 +139,5 @@ MonoBehaviour:
   FlowMatrials: []
   ScrollingSpeed: 3
   PullSpeed: 2
-  IgnoreLayerNames: []
+  IgnoreLayerNames:
+  - Player

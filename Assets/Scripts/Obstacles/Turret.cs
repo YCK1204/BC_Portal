@@ -102,9 +102,9 @@ public class Turret : ObstacleBase
             AudioManager.Instance.StopSFX(currentSound);
 
             if (_newSound == "Turret_IdleRotate")
-                AudioManager.Instance.PlayLoopSFX(_newSound, transform.position);
+                AudioManager.Instance.PlayLoopSFX(_newSound);
             else
-                AudioManager.Instance.PlaySFX(_newSound, transform.position);
+                AudioManager.Instance.PlaySFX(_newSound);
 
             currentSound = _newSound;
         }
@@ -163,7 +163,7 @@ public class Turret : ObstacleBase
     Quaternion _rotation = Quaternion.LookRotation(_direction) * Quaternion.Euler(90f, 0f, 0f);
 
     // 사운드 및 이펙트 재생
-    AudioManager.Instance.PlaySFX("Turret_Fire", transform.position);
+    AudioManager.Instance.PlaySFX("Turret_Fire");
     MuzzleFlash?.Play();
 
     // 레이저 생성 및 초기화

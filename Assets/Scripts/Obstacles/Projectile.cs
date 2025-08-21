@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
         {
             PlayerManager.Instance.Player.condition.TakePhysicalDamage(damage);
         }
-        AudioManager.Instance.PlaySFX("Laser_Hit",transform.position);
+        AudioManager.Instance.PlaySFX("Laser_Hit");
         if (hitEffectPrefab != null)
         {
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);

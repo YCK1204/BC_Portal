@@ -95,7 +95,7 @@ public class JumpPadController : BaseGimmickController
     }
     IEnumerator PlayJumpPadAnim()
     {
-        AudioManager.Instance.PlaySFX("Jump",transform.position);
+        AudioManager.Instance.PlaySFX("Jump");
 
         for (int i = 0; i < Steps.Count - 1; i++)
         {

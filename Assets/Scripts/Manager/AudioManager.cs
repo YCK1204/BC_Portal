@@ -73,18 +73,6 @@ public class AudioManager : Singleton<AudioManager>
             _audioSources[i].playOnAwake = false;
             _audioSources[i].loop = false;
             _audioSources[i].outputAudioMixerGroup = _mixerGroup;
-
-            if (mixerGroupName == "BGM")
-            {
-                _audioSources[i].spatialBlend = 0f;
-            }
-            else if (mixerGroupName == "SFX")
-            {
-                _audioSources[i].spatialBlend = 1f;
-                _audioSources[i].rolloffMode = AudioRolloffMode.Logarithmic;
-                _audioSources[i].minDistance = 1f;
-                _audioSources[i].maxDistance = 20f;
-            }
         }
 
         return _audioSources;
@@ -115,52 +103,25 @@ public class AudioManager : Singleton<AudioManager>
         PlayerPrefs.SetFloat(key, val);
     }
 
-    public void PlaySFX(string name, Vector3? position = null)
+    public void PlaySFX(string name)
     {
         if(sfxClips.ContainsKey(name))
         {
-            if (!sfxClips.ContainsKey(name)) return;
-
             AudioClip _clip = sfxClips[name];
             AudioSource _player = sfxPlayers[sfxChannelIndex];
 
-            // 위치 지정
-            if (position.HasValue)
-            {
-                _player.transform.position = position.Value;
-                _player.spatialBlend = 1f; // 3D 사운드
-            }
-            else
-            {
-                _player.transform.position = transform.position; // AudioManager 위치
-                _player.spatialBlend = 0f; // 2D 사운드
-            }
-
             _player.PlayOneShot(_clip);
 
-            // 채널 인덱스 증가
             sfxChannelIndex = (sfxChannelIndex + 1) % sfxPlayers.Length;
         }
     }
 
-    public void PlayLoopSFX(string name, Vector3? position = null)
+    public void PlayLoopSFX(string name)
     {
         if (sfxClips.ContainsKey(name))
         {
             AudioClip _clip = sfxClips[name];
             AudioSource _player = sfxPlayers[sfxChannelIndex];
-
-            // 위치 지정
-            if (position.HasValue)
-            {
-                _player.transform.position = position.Value;
-                _player.spatialBlend = 1f; // 3D 사운드
-            }
-            else
-            {
-                _player.transform.position = transform.position; // AudioManager 위치
-                _player.spatialBlend = 0f; // 2D 사운드
-            }
 
             _player.clip = _clip;
             _player.loop = true;

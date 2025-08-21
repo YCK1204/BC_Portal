@@ -63,11 +63,11 @@ public class TitleUI : MonoBehaviour
         yield return new WaitForSeconds(5f);
         uiManager.enabled = true;
         playerInput.enabled = true;
+        StageManager.Instance.RespawnPlayer(player);
         yield return new WaitForSeconds(1f);
         hpgauge.SetActive(true);
         yield return new WaitForSeconds(1f);
         player.SetActive(true);
-        StageManager.Instance.RespawnPlayer(player);
     }
 
     IEnumerator LoadStart()
@@ -78,10 +78,11 @@ public class TitleUI : MonoBehaviour
         AudioManager.Instance.PlayBGM("InGame");
         uiManager.enabled = true;
         playerInput.enabled = true;
-        yield return new WaitForSeconds(2f);
-        hpgauge.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
         player.SetActive(true);
         StageManager.Instance.RespawnPlayer(player);
+        yield return new WaitForSeconds(2f);
+        hpgauge.SetActive(true);
     }
 
     public void OnClickContinue()

@@ -70,8 +70,8 @@ public class TitleUI : MonoBehaviour
         yield return new WaitForSeconds(1f);
         hpgauge.SetActive(true);
         yield return new WaitForSeconds(1f);
-        intro.SetActive(false);
         player.SetActive(true);
+        intro.SetActive(false);
     }
 
     IEnumerator LoadStart()

@@ -10,7 +10,7 @@ public  interface IDamagable
 
 public class PlayerCondition : MonoBehaviour, IDamagable
 {
-    public Condition health;
+    public HPBar health;
 
     public event Action onTakeDamage;
     // Start is called before the first frame update
@@ -34,6 +34,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
 
     public void TakePhysicalDamage(float Damage)
     {
+        health.TakeDamage();
         health.Subtract(Damage);
         onTakeDamage?.Invoke();
     }

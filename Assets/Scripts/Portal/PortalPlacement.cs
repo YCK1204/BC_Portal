@@ -18,12 +18,18 @@ public class PortalPlacement : MonoBehaviour
     private Portal portalInstanceA;
     private Portal portalInstanceB;
 
+    private Animator portalanimatorA;
+    private Animator portalanimatorB;
+
 
     private void Start()
     {
         // 게임 시작 시 포탈 프리팹으로부터 인스턴스를 생성해 둡니다.
         portalInstanceA = Instantiate(portalPrefabA);
         portalInstanceB = Instantiate(portalPrefabB);
+
+        portalanimatorA = portalInstanceA.GetComponent<Animator>();
+        portalanimatorB = portalInstanceB.GetComponent<Animator>();
 
         // 두 포탈이 서로를 알도록 연결해 줍니다.
         portalInstanceA.LinkedPortal(portalInstanceB);
@@ -63,10 +69,12 @@ public class PortalPlacement : MonoBehaviour
             if (portalId == 0)
             {
                 portalToPlace = portalInstanceA;
+                portalanimatorA.SetTrigger("reset");
             }
             else
             {
                 portalToPlace = portalInstanceB;
+                portalanimatorB.SetTrigger("reset");
             }
 
             // 카메라 방향을 기준으로 포탈의 회전 값을 계산한다. (우선 현재 카메라의 회전 값을 가져온다.)

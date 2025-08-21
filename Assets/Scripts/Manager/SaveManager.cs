@@ -10,9 +10,13 @@ public class SaveManager : Singleton<SaveManager>
 {
     // 파일 저장
     private string _savefileName = "save.json";
+    public string SaveFileName => _savefileName;
     private string _savefilePath;
 
     public SaveData saveData { get; private set; }
+
+    // 저장 파일의 존재 여부를 외부에서 알 수 있게 해주는 상태 변수
+    public bool HasSaveFile { get; private set; }
 
 
     // 초기화(Awake에서 자동 호출)
@@ -45,11 +49,16 @@ public class SaveManager : Singleton<SaveManager>
         {
             string json = File.ReadAllText(_savefilePath);
             this.saveData = JsonUtility.FromJson<SaveData>(json);
+
+            this.HasSaveFile = true; // 파일이 있으니 true로 설정
+
             Debug.Log("게임 데이터를 성공적으로 불러왔습니다.");
         }
         else
         {
             Debug.Log("저장된 데이터가 없습니다");
+            NewGame(); // 저장 파일이 없으면 새 데이터를 생성하여 saveData를 초기화
+            this.HasSaveFile = false;
         }
     }
 
@@ -57,5 +66,6 @@ public class SaveManager : Singleton<SaveManager>
     public void NewGame()
     {
         this.saveData = new SaveData();
+        this.HasSaveFile = false;
     }
 }

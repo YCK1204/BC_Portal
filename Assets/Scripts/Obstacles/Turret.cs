@@ -102,9 +102,9 @@ public class Turret : ObstacleBase
             AudioManager.Instance.StopSFX(currentSound);
 
             if (_newSound == "Turret_IdleRotate")
-                AudioManager.Instance.PlayLoopSFX(_newSound, transform.position);
+                AudioManager.Instance.PlayLoopSFX(_newSound);
             else
-                AudioManager.Instance.PlaySFX(_newSound, transform.position);
+                AudioManager.Instance.PlaySFX(_newSound);
 
             currentSound = _newSound;
         }

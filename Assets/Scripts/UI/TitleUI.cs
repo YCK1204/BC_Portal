@@ -67,6 +67,7 @@ public class TitleUI : MonoBehaviour
         hpgauge.SetActive(true);
         yield return new WaitForSeconds(1f);
         player.SetActive(true);
+        StageManager.Instance.RespawnPlayer(player);
     }
 
     public void OnClickContinue()

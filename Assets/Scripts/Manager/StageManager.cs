@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
 {
-    private Player player;
     public GameObject[] stageParents;
     private Transform[] startPoints;
 
     protected override void Initialize()
     {
         base.Initialize();
-        player = PlayerManager.Instance.Player;
         InitializeStageIds();
     }
 
@@ -79,7 +77,7 @@ public class StageManager : Singleton<StageManager>
         Debug.Log($"<color=green>[StageManager]</color> 스테이지 {clearedStageId} 클리어 정보 저장을 완료했습니다.");
     }
 
-    public void RespawnPlayer()
+    public void RespawnPlayer(GameObject playerObject)
     {
         int currentStageId = SaveManager.Instance.saveData.lastClearStageIndex;
 
@@ -88,15 +86,15 @@ public class StageManager : Singleton<StageManager>
         {
             Transform respawnPoint = startPoints[currentStageId];
 
-            var rb = player.GetComponent<Rigidbody>();
+            var rb = playerObject.GetComponent<Rigidbody>();
             if(rb != null)
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
             }
 
-            player.transform.position = respawnPoint.position;
-            player.transform.rotation = respawnPoint.rotation;
+            playerObject.transform.position = respawnPoint.position;
+            playerObject.transform.rotation = respawnPoint.rotation;
         }
         else
         {

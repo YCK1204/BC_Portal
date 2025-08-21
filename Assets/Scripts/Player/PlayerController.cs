@@ -30,12 +30,15 @@ public class PlayerController : PortalableObject
     private float nextJumpTime;
     public float rotationSpeed = 5f;
 
+    private PlayerInput playerInput;
+
     protected override void Awake()
 
     {
         base.Awake();
         //_rigidbody = GetComponent<Rigidbody>();
         aniController = GetComponentInChildren<AniController>();
+        playerInput = GetComponent<PlayerInput>();
 
     }
 
@@ -171,4 +174,5 @@ public class PlayerController : PortalableObject
 
         return false;
     }
+
 }

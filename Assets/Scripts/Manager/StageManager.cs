@@ -7,6 +7,7 @@ public class StageManager : Singleton<StageManager>
     public GameObject[] stageParents;
     private Transform[] startPoints;
 
+
     protected override void Initialize()
     {
         base.Initialize();
@@ -80,7 +81,6 @@ public class StageManager : Singleton<StageManager>
     public void RespawnPlayer(GameObject playerObject)
     {
         int currentStageId = SaveManager.Instance.saveData.lastClearStageIndex;
-
         // 현재 스테이지가 0 이상이고, 현재 스테이지가 최대 스테이지 개수보다 작은 ID이고, 스타팅 포인트가 있다면
         if (currentStageId >= 0 && currentStageId < startPoints.Length && startPoints[currentStageId] != null)
         {

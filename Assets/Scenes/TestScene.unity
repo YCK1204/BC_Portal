@@ -11027,10 +11027,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 851988089}
   delayHpBar: {fileID: 533590678}
-  startValue: 100
   curValue: 100
+  maxValue: 100
   passiveValue: 100
-  maxValue: 1
   Speed: 5
   delaySpeed: 3
   _hp: {fileID: 594377834}

@@ -18,17 +18,40 @@ public class TitleUI : MonoBehaviour
     public GameObject hpgauge;
     public GameObject player;
 
+    public Button continueButton;
+
     void Start()
     {
         AudioManager.Instance.PlayBGM("Title");
         AudioManager.Instance.AudioSliders(bgmSlider, sfxSlider);
+
+
+        StartCoroutine(CheckForSaveFile());
     }
 
     public void OnClickNewGame()
     {
+        // 새 게임 데이터 저장
+        SaveManager.Instance.NewGame();
         //게임 시작
         introAnimator.SetBool("NEW_GAME", true);
         StartCoroutine(GameStart());
+    }
+
+    private IEnumerator CheckForSaveFile()
+    {
+        // SaveManager 인스턴스가 로드될 때까지 한 프레임 기다립니다.
+        yield return null;
+
+        // 저장 파일이 존재하면 버튼을 활성화, 없으면 비활성화합니다.
+        if (SaveManager.Instance.HasSaveFile)
+        {
+            continueButton.interactable = true;
+        }
+        else
+        {
+            continueButton.interactable = false;
+        }
     }
 
     IEnumerator GameStart()
@@ -44,11 +67,14 @@ public class TitleUI : MonoBehaviour
         hpgauge.SetActive(true);
         yield return new WaitForSeconds(1f);
         player.SetActive(true);
+        StageManager.Instance.RespawnPlayer(player);
     }
 
     public void OnClickContinue()
     {
         //최근 세이브로 게임 시작
+        introAnimator.SetBool("NEW_GAME", false); // 새 게임과 동일한 애니메이션 사용
+        StartCoroutine(GameStart());
     }
 
     public void OnClickSettings()

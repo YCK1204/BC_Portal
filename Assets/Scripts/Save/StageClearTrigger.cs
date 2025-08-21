@@ -17,6 +17,7 @@ public class StageClearTrigger : MonoBehaviour
         if(other.CompareTag("Player") && !thisStageCleared)
         {
             thisStageCleared = true;
+            Debug.Log($"<color=yellow>[ClearTrigger]</color> 플레이어가 스테이지 {stageId}번 클리어 존에 닿았습니다. 저장을 요청합니다.");
             ClearEvent.ReportStageCleared(stageId);
         }
     }

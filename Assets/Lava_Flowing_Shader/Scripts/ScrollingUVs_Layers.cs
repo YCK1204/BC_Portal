@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class ScrollingUVs_Layers : MonoBehaviour 
@@ -8,13 +8,17 @@ public class ScrollingUVs_Layers : MonoBehaviour
 	public string textureName = "_MainTex";
 	
 	Vector2 uvOffset = Vector2.zero;
-	
-	void LateUpdate() 
+    Material mat;
+    private void Start()
+    {
+        mat = GetComponent<Renderer>().material;
+    }
+    void Update() 
 	{
 		uvOffset += ( uvAnimationRate * Time.deltaTime );
 		if( GetComponent<Renderer>().enabled )
 		{
-			GetComponent<Renderer>().sharedMaterial.SetTextureOffset( textureName, uvOffset );
+            mat.SetTextureOffset( textureName, uvOffset );
 		}
 	}
 }

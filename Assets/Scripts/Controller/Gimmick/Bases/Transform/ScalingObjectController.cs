@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class ScalingObjectController : TransformGimmickController
 {
-    Coroutine _coScaling = null;
+    protected Coroutine _coScaling = null;
     protected override void Init() { SetScale((AutoSetFrom) ? From : To); }
     protected void SetFromScale() { SetScale(From); }
     protected void SetToScale() { SetScale(To); }

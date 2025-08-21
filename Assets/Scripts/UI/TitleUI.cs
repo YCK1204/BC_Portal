@@ -60,7 +60,9 @@ public class TitleUI : MonoBehaviour
         yield return new WaitForSeconds(4.3f);
         AudioManager.Instance.StopBGM("Title");
         AudioManager.Instance.PlayBGM("InGame");
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
+        AudioManager.Instance.PlaySFX("Robot_on");
+        yield return new WaitForSeconds(2f);
         uiManager.enabled = true;
         playerInput.enabled = true;
         StageManager.Instance.RespawnPlayer(player);
@@ -76,6 +78,7 @@ public class TitleUI : MonoBehaviour
         yield return new WaitForSeconds(1f);
         AudioManager.Instance.StopBGM("Title");
         AudioManager.Instance.PlayBGM("InGame");
+        AudioManager.Instance.PlaySFX("Robot_on");
         uiManager.enabled = true;
         playerInput.enabled = true;
         yield return new WaitForSeconds(0.5f);

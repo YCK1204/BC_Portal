@@ -41,7 +41,7 @@ public class PortalPlacement : MonoBehaviour
         if (UIManager.Instance.isMenuOpen) return;
         if (context.phase == InputActionPhase.Started)
         {
-            FirePortal(0, mainCameraTransform.transform.position, mainCameraTransform.transform.forward, 500.0f);
+            FirePortal(0, mainCameraTransform.transform.position, mainCameraTransform.transform.forward, 50.0f);
         }
     }
 
@@ -50,7 +50,7 @@ public class PortalPlacement : MonoBehaviour
         if (UIManager.Instance.isMenuOpen) return;
         if (context.phase == InputActionPhase.Started)
         {
-            FirePortal(1, mainCameraTransform.transform.position, mainCameraTransform.transform.forward, 500.0f);
+            FirePortal(1, mainCameraTransform.transform.position, mainCameraTransform.transform.forward, 50.0f);
         }
     }
 

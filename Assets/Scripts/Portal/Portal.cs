@@ -52,7 +52,7 @@ public class Portal : MonoBehaviour
             // 포탈에 들어온 오브젝트의 월드 좌표를 포탈 기준의 로컬 좌표로 변환한다.
             Vector3 objectPosition = transform.InverseTransformPoint(portalObjects[i].transform.position);
 
-            if (objectPosition.z > 0.0f && portalObjects[i].CanWarp)
+            if (otherPortal != null && otherPortal.isPlaced && objectPosition.z > 0.0f && portalObjects[i].CanWarp)
             {
                 // 포탈을 넘어가면 Warp한다.
                 portalObjects[i].Warp();
@@ -67,9 +67,18 @@ public class Portal : MonoBehaviour
         // 닿은 오브젝트가 PortalableObject 을 가지고 있을 때 동작
         if (obj != null)
         {
-            // 포탈에 닿은 오브젝트 리스트에 추가
-            portalObjects.Add(obj);
-            obj.SetIsInPortal(this, otherPortal, wallCollider);
+            // 리스트에 추가해서 물체가 포탈에 닿아 있다는 사실을 기록한다.
+            if (!portalObjects.Contains(obj))
+            {
+                portalObjects.Add(obj);
+            }
+
+            // 반대 포탈이 활성화 되어 있을 때만
+            if (otherPortal != null && otherPortal.isPlaced)
+            {
+                // 포탈에 닿은 오브젝트 리스트에 추가
+                obj.SetIsInPortal(this, otherPortal, wallCollider);
+            }
         }
     }
 
@@ -84,8 +93,15 @@ public class Portal : MonoBehaviour
         }
     }
 
+    public void LinkedPortal(Portal other)
+    {
+        otherPortal = other;
+    }
     public bool PlacePortal(Collider wallCollider, Vector3 pos, Quaternion rot)
     {
+        // 배치를 시도하기 전에, 만약 이미 다른 벽에 붙어있었다면 부모 관계를 해제합니다.
+        transform.SetParent(null);
+
         transform.position = pos;
         transform.rotation = rot;
         transform.position -= transform.forward * 0.001f;
@@ -105,6 +121,7 @@ public class Portal : MonoBehaviour
 
     public void RemovePortal()
     {
+        transform.SetParent(null);
         gameObject.SetActive(false);
         isPlaced = false;
     }
@@ -182,11 +199,12 @@ public class Portal : MonoBehaviour
             Vector3 raycastDir = transform.TransformDirection(testDirs[i]); // 위와 동일하며, 광선을 쏠 방향을 저장
 
             // 각 raycastPos를 검사해서 이미 포탈이 벽 안에 적당한 위치에 존재하는가 확인
-            if (Physics.CheckSphere(raycastPos, 0.05f, placementMask)) { break; }
+            if (Physics.CheckSphere(raycastPos, 0.05f, placementMask)) { continue; }
             // 한 지점이라도 벽 밖에 허공에 생성되게 되면, 벽까지의 거리가 얼마나 남았는지 계산
             // 상세 설명: Ray를 쐈을 때, raycastPos 위치에서 raycastDir(포탈의 안쪽 방향)으로 레이저를 2.1f 길이 만큼 쐈을 때 Layer가 벽이 맞다면 포탈의 한 지점이 허공에 생성된 상태
             else if (Physics.Raycast(raycastPos, raycastDir, out hit, 2.1f, placementMask))
             {
+                Debug.DrawRay(raycastPos, raycastDir, Color.red);
                 // 실제 Ray가 부딪힌 벽의 월드좌표 - 광선이 출발했던 허공의 월드 좌표. 즉, 포탈이 정확히 허공에 삐져나온 만큼의 값
                 var offset = hit.point - raycastPos;
                 // 위에서 계산한 offset의 거리만큼 포탈을 이동시킨다.

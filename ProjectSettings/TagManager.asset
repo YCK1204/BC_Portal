@@ -7,6 +7,9 @@ TagManager:
   - ClickBlock
   - Undefined
   - Portal
+  - Item
+  - Button
+  - Camera
   layers:
   - Default
   - TransparentFX

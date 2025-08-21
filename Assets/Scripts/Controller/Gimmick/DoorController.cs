@@ -34,5 +34,6 @@ public class CanPositionDoorController : PositioningObjectController
         if (_coPositioning != null)
             StopCoroutine(_coPositioning);
         _coPositioning = StartCoroutine(CoMoveAt(From));
+        AudioManager.Instance.StopSFX("Door_on");
     }
 }

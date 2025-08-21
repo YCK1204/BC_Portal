@@ -8,8 +8,11 @@ public class Player : MonoBehaviour
 {
     public PlayerController controller;
     public PlayerCondition condition { get; private set; }
-    
+    public ItemData itemData;
+    public Action<ItemData> OnItemChanged;
 
+    [Header("Anchors")]
+    private GameObject equippedInstance;
     
 
     private void Awake()
@@ -17,8 +20,7 @@ public class Player : MonoBehaviour
         PlayerManager.Instance.Player = this;
         controller = GetComponent<PlayerController>();
         condition = GetComponent<PlayerCondition>();
+        itemData = null;
     }
-    // 외부에서 플레이어 정보에 접근하고 싶은 경우가 있을 때, Player 스크립트를 통해 접근할 수 있도록 함.
-
 
 }

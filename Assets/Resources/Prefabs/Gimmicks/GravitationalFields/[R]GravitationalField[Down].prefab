@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8082038148600911769}
   - component: {fileID: 3638710228267498981}
   - component: {fileID: 8542165260235705949}
+  - component: {fileID: -3971469862634301150}
   m_Layer: 0
   m_Name: '[R]GravitationalField[Down]'
   m_TagString: Untagged
@@ -118,3 +119,25 @@ MonoBehaviour:
   IgnoreColliders: []
   ControllType: 0
   FlowSpeed: 1
+--- !u!64 &-3971469862634301150
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863792514752679272}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}

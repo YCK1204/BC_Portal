@@ -5,8 +5,10 @@ using UnityEngine;
 public class EndFade : MonoBehaviour
 {
     public GameObject fade;
-    void Start()
+
+    private void OnTriggerEnter(Collider other)
     {
         fade.SetActive(true);
     }
+
 }

@@ -73,18 +73,6 @@ public class AudioManager : Singleton<AudioManager>
             _audioSources[i].playOnAwake = false;
             _audioSources[i].loop = false;
             _audioSources[i].outputAudioMixerGroup = _mixerGroup;
-
-            if (mixerGroupName == "BGM")
-            {
-                _audioSources[i].spatialBlend = 0f;
-            }
-            else if (mixerGroupName == "SFX")
-            {
-                _audioSources[i].spatialBlend = 1f;
-                _audioSources[i].rolloffMode = AudioRolloffMode.Logarithmic;
-                _audioSources[i].minDistance = 1f;
-                _audioSources[i].maxDistance = 20f;
-            }
         }
 
         return _audioSources;

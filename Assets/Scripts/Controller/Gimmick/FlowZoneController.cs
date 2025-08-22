@@ -1,6 +1,7 @@
 using Autodesk.Fbx;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Android.Types;
 using UnityEngine;
 
 public enum FlowZoneType
@@ -11,6 +12,11 @@ public enum FlowZoneType
     Down,
     Right,
     Backward
+}
+public enum FlowZoneControllType
+{
+    Reserve,
+    StopOrContinue,
 }
 public class FlowZoneController : BaseGimmickController
 {
@@ -23,7 +29,11 @@ public class FlowZoneController : BaseGimmickController
     [SerializeField]
     float PullSpeed = 1.0f;
     [SerializeField]
-    string[] IgnoreLayerNames;
+    Collider[] IgnoreColliders;
+    [SerializeField]
+    FlowZoneControllType ControllType = FlowZoneControllType.Reserve;
+    [SerializeField]
+    float FlowSpeed = 1.0f;
 
     Collider _collider;
     List<GameObject> _objectsInZone = new List<GameObject>();
@@ -46,10 +56,29 @@ public class FlowZoneController : BaseGimmickController
         Vector3.right,
         Vector3.back,
     };
+    bool _stopOrContinue = false;
     public override void Enter()
     {
-        FlowType = (FlowZoneType)(((int)FlowType + 3) % 6);
-        _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType];
+        switch (ControllType)
+        {
+            case FlowZoneControllType.Reserve:
+                FlowType = (FlowZoneType)(((int)FlowType + 3) % 6);
+                _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType];
+                break;
+            case FlowZoneControllType.StopOrContinue:
+                _stopOrContinue = !_stopOrContinue;
+                if (_stopOrContinue)
+                {
+                    _scrollingUVs.uvAnimationRate = Vector2.zero;
+                    _collider.enabled = false;
+                }
+                else
+                {
+                    _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType];
+                    _collider.enabled = true;
+                }
+                break;
+        }
     }
     public override void Exit()
     {
@@ -59,14 +88,11 @@ public class FlowZoneController : BaseGimmickController
         _collider = GetComponent<Collider>();
         _scrollingUVs = GetComponent<ScrollingUVs_Layers>();
         for (int i = 0; i < _matFlowDirections.Length; i++)
-            _matFlowDirections[i] *= ScrollingSpeed;
+            _matFlowDirections[i] *= FlowSpeed;
         _scrollingUVs.uvAnimationRate = _matFlowDirections[(int)FlowType];
-        foreach (var layerName in IgnoreLayerNames)
+        foreach (var collider in IgnoreColliders)
         {
-            int layer = LayerMask.NameToLayer(layerName);
-            if (layer == -1)
-                continue;
-            Physics.IgnoreLayerCollision(gameObject.layer, layer);
+            Physics.IgnoreCollision(_collider, collider);
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -88,7 +114,7 @@ public class FlowZoneController : BaseGimmickController
     }
     private void FixedUpdate()
     {
-        if (_objectsInZone.Count == 0) return;
+        if (_objectsInZone.Count == 0 || _stopOrContinue == true) return;
         // forward backward -> y, x
         // left right -> y, z
         // up down -> x, z

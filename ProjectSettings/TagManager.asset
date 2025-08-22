@@ -9,6 +9,7 @@ TagManager:
   - Portal
   - Item
   - Button
+  - Camera
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - PlayerBody
   - PBodyInvisable
   - PortalWall
-  - 
+  - GravitationalField
   - 
   - 
   - 

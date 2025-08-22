@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using Gimmick.Btn;
 
 public class Interaction : MonoBehaviour
 {
@@ -14,17 +15,17 @@ public class Interaction : MonoBehaviour
     public GameObject curInteractGameObject;
 
     public TextMeshProUGUI promptText;
-    private Camera camera; //강의에도 경고문구가 나오긴하는데 일단 보류해두고 추후 수정할 수 있는지 확인해보겠습니다.
+    public Camera camera;
     private Player player;
 
     public float dropForward = 1f;
 
     public Transform cube;
 
-    
+
     private Transform carried;
 
-      
+
 
     // Start is called before the first frame update
     void Start()
@@ -38,21 +39,16 @@ public class Interaction : MonoBehaviour
     {
         Ray ray = camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         RaycastHit hit;
-        Debug.Log("Update good");
-        if(Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
+        if (Physics.Raycast(ray, out hit, maxCheckDistance, layerMask))
         {
-            Debug.Log("RayCast good");
             if (hit.collider.gameObject != curInteractGameObject)
             {
                 curInteractGameObject = hit.collider.gameObject;
-                Debug.Log("gameobject good");
             }
-            
         }
         else
         {
             curInteractGameObject = null;
-            Debug.Log("else good");
         }
     }
 
@@ -61,21 +57,28 @@ public class Interaction : MonoBehaviour
     {
         if (!context.started) return;
 
-        if(curInteractGameObject && HasTagInParents(curInteractGameObject.transform, "Item"))
+        if (curInteractGameObject && HasTagInParents(curInteractGameObject.transform, "Item"))
+        {
+            var bc = curInteractGameObject.GetComponent<ButtonController>();
+            if (bc != null)
             {
-            Transform itemRoot = curInteractGameObject.GetComponentInParent<Transform>();
-            if(carried == itemRoot)
+                bc.Enter();
+            }
+            else
             {
-                DropCarried();
+                Transform itemRoot = curInteractGameObject.GetComponentInParent<Transform>();
+                if (carried == itemRoot)
+                {
+                    DropCarried();
+                    return;
+                }
+                if (carried) DropCarried();
+                PickUp(itemRoot);
                 return;
             }
-
-            if (carried) DropCarried();
-            PickUp(itemRoot);
-            return;
         }
 
-        if(carried) DropCarried();
+        if (carried) DropCarried();
 
 
     }
@@ -92,7 +95,7 @@ public class Interaction : MonoBehaviour
 
     void PickUp(Transform item)
     {
-        if(item.TryGetComponent<Rigidbody>(out var rb))
+        if (item.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = true;
             rb.detectCollisions = false;
@@ -113,11 +116,11 @@ public class Interaction : MonoBehaviour
         carried = null;
 
         t.SetParent(null, true);
-        Vector3 pos = (player ?  player.transform.position : transform.position) + (player? player.transform.forward : transform.forward) * dropForward;
+        Vector3 pos = (player ? player.transform.position : transform.position) + (player ? player.transform.forward : transform.forward) * dropForward;
         Quaternion rot = Quaternion.LookRotation((player ? player.transform.forward : transform.forward), Vector3.up);
         t.SetPositionAndRotation(pos, rot);
 
-        if(t.TryGetComponent<Rigidbody>(out var rb))
+        if (t.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.isKinematic = false;
             rb.detectCollisions = true;

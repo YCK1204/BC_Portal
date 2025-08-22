@@ -7,8 +7,12 @@ public class HPBar : MonoBehaviour
 {
     public Image hpBar;
     public Image delayHpBar;
-    public float hp = 100;
-    public float maxHp = 100;
+    public float startValue = 100;
+    public float curValue = 100;
+    public float maxValue = 100;
+    public float passiveValue = 1;
+
+
     public float Speed = 5f;
     public float delaySpeed = 2f;
 
@@ -21,17 +25,17 @@ public class HPBar : MonoBehaviour
     void Update()
     {
         //테스트용 데미지 or 포탈
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            TakeDamage(20f);
-        }
+        //if (Input.GetKeyDown(KeyCode.Z))
+        //{
+        //    TakeDamage();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            hp = 100;
-        }
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    curValue = 100;
+        //}
 
-        targetFill = hp / maxHp;
+        targetFill = curValue / maxValue;
 
         //실제체력바
         hpBar.fillAmount = Mathf.Lerp(hpBar.fillAmount, targetFill, Time.deltaTime * Speed);
@@ -50,14 +54,23 @@ public class HPBar : MonoBehaviour
         hpBar.color = _color;
     }
 
-    public void SetHp(float value)
+    public void Add(float value)
     {
-        hp = Mathf.Clamp(value, 0, maxHp);
+        curValue = Mathf.Min(curValue + value, maxValue);
     }
 
-    public void TakeDamage(float damage)
+    public void Subtract(float value)
     {
-        SetHp(hp - damage);
+        curValue = Mathf.Max(curValue - value, 0);
+    }
+
+    public void SetHp(float value)
+    {
+        curValue = Mathf.Clamp(value, 0, maxValue);
+    }
+
+    public void TakeDamage()
+    {
         _hp.SetTrigger("damage");
         _damage.SetTrigger("damage");
     }

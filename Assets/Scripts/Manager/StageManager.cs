@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class StageManager : Singleton<StageManager>
 {
-    private Player player;
     public GameObject[] stageParents;
     private Transform[] startPoints;
+
 
     protected override void Initialize()
     {
         base.Initialize();
-        player = PlayerManager.Instance.Player;
         InitializeStageIds();
     }
 
@@ -65,6 +64,7 @@ public class StageManager : Singleton<StageManager>
     // 해당 스테이지를 클리어 했을 때 동작하는 메서드
     private void StageCleared(int clearedStageId)
     {
+        Debug.Log($"<color=cyan>[StageManager]</color> 이벤트 수신: 스테이지 {clearedStageId} 클리어 요청을 받았습니다.");
         SaveData saveData = SaveManager.Instance.saveData;
 
         if (!saveData.clearedStagesIndex.Contains(clearedStageId))
@@ -75,26 +75,26 @@ public class StageManager : Singleton<StageManager>
         // 마지막 클리어 스테이지 번호를 갱신하고 저장한다.
         saveData.lastClearStageIndex = clearedStageId + 1;
         SaveManager.Instance.SaveGame();
+        Debug.Log($"<color=green>[StageManager]</color> 스테이지 {clearedStageId} 클리어 정보 저장을 완료했습니다.");
     }
 
-    public void RespawnPlayer()
+    public void RespawnPlayer(GameObject playerObject)
     {
         int currentStageId = SaveManager.Instance.saveData.lastClearStageIndex;
-
         // 현재 스테이지가 0 이상이고, 현재 스테이지가 최대 스테이지 개수보다 작은 ID이고, 스타팅 포인트가 있다면
         if (currentStageId >= 0 && currentStageId < startPoints.Length && startPoints[currentStageId] != null)
         {
             Transform respawnPoint = startPoints[currentStageId];
 
-            var rb = player.GetComponent<Rigidbody>();
+            var rb = playerObject.GetComponent<Rigidbody>();
             if(rb != null)
             {
                 rb.velocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
             }
 
-            player.transform.position = respawnPoint.position;
-            player.transform.rotation = respawnPoint.rotation;
+            playerObject.transform.position = respawnPoint.position;
+            playerObject.transform.rotation = respawnPoint.rotation;
         }
         else
         {

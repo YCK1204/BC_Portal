@@ -26,6 +26,8 @@ public class TitleUI : MonoBehaviour
         AudioManager.Instance.PlayBGM("Title");
         AudioManager.Instance.AudioSliders(bgmSlider, sfxSlider);
 
+        Screen.SetResolution(1600, 900, true);
+
 
         StartCoroutine(CheckForSaveFile());
     }

@@ -24,6 +24,7 @@ public class HPBar : MonoBehaviour
 
     void Update()
     {
+        // 사용하지 않는 코드는 지우자
         //테스트용 데미지 or 포탈
         //if (Input.GetKeyDown(KeyCode.Z))
         //{
@@ -54,6 +55,7 @@ public class HPBar : MonoBehaviour
         hpBar.color = _color;
     }
 
+    // 클램프 하는 건 좋은데, UI 이전에 Player 가 조정하는게 좋음
     public void Add(float value)
     {
         curValue = Mathf.Min(curValue + value, maxValue);

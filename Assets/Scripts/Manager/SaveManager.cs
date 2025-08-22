@@ -37,6 +37,20 @@ public class SaveManager : Singleton<SaveManager>
             NewGame();
         }
 
+        // 직렬화를 잘 하고 있다.
+        // Json 모듈 장단점을 파악하자, 
+        
+        // JsonUtility
+        // 장점 : Unity 에서 좋다, GameObject 직렬화가 됨
+        // 단점 
+        // 유연하지 못함,
+        // Property 지원 X,
+        // Dictionary, List<List> 등 복잡한 구조 안됨
+        // GameObject 직렬화가 됨
+        // Unity 지원은 좋지만, 외부 모듈 지원은 좋지 않음(API 대응 약함)
+        
+        // Newtonsoft(추천), LitJson 등 알아보자
+        
         string json = JsonUtility.ToJson(this.saveData, true);
         File.WriteAllText(_savefilePath, json);
         Debug.Log("게임 데이터를 성공적으로 저장했습니다." + _savefilePath);

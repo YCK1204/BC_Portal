@@ -2,8 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 축약보다는 풀네임을 사용하는 습관을 가지자
+// Animation?  Animator? Animal?
 public class AniController : MonoBehaviour
 {
+    // 
+    
+    // 문자열 사용 말고 고정된 Hash 값을 캐싱해서 활용 좋음
     private static readonly int IsMove = Animator.StringToHash("IsMove");
     private static readonly int IsJump = Animator.StringToHash("IsJump");
     private static readonly int IsDead = Animator.StringToHash("IsDead");

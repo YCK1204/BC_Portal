@@ -20,6 +20,7 @@ public class AudioManager : Singleton<AudioManager>
     private AudioSource[] bgmPlayers;
     private AudioSource[] sfxPlayers;
 
+    // Dictioanry 키값 관리 좋음 -> 문자열? enum 장단을 알고 진행하자
     private Dictionary<string,AudioClip> bgmClips = new Dictionary<string,AudioClip>(); // _bgm 저장
     private Dictionary<string,AudioClip> sfxClips = new Dictionary<string,AudioClip>(); // _sfx 저장
 
@@ -40,6 +41,8 @@ public class AudioManager : Singleton<AudioManager>
         InitializeAudioClips();
     }
 
+    // 필요할때 생성하고 사용하지 않을때 언로드하는 형식이 필요
+    // 초기에 로드해두는 것은 부담이 된다
     private void InitializeAudioClips()
     {
         foreach(var _bgm in bgmClipList)
@@ -103,6 +106,7 @@ public class AudioManager : Singleton<AudioManager>
         PlayerPrefs.SetFloat(key, val);
     }
 
+    // 파라미터 스트링 -> 상수로
     public void PlaySFX(string name)
     {
         if(sfxClips.ContainsKey(name))

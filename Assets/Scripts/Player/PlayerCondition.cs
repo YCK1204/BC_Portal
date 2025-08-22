@@ -63,7 +63,7 @@ public class PlayerCondition : MonoBehaviour, IDamagable
             yield return null;
         }
 
-
+        // 이벤트 활용 고려
         saveManager.LoadGame();
         stageManager.RespawnPlayer(player.gameObject);
         health.curValue = health.maxValue;

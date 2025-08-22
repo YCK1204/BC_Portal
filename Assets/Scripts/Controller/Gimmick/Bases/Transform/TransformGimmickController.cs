@@ -13,4 +13,9 @@ public abstract class TransformGimmickController : BaseGimmickController
     protected float Speed = 1f;
     [SerializeField]
     protected bool AutoSetFrom = false;
+
+    protected override void Start()
+    {
+        base.Start();
+    }
 }

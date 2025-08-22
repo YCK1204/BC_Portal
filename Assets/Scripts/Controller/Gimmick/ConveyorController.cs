@@ -27,6 +27,8 @@ public class ConveyorController : BaseGimmickController
     {
         if (_transforms.Contains(collision.transform))
             return;
+        // 미리 캐싱해두는게 좋을듯?
+        // 아니면 아에 물리 충돌 레이어를 설정해두자
         if (IgnoreLayerNames.Where(name => LayerMask.NameToLayer(name) == collision.gameObject.layer).Count() > 0)
             return;
         _transforms.Add(collision.transform);

@@ -29,6 +29,7 @@ public class Projectile : MonoBehaviour
         AudioManager.Instance.PlaySFX("Laser_Hit");
         if (hitEffectPrefab != null)
         {
+            // 프로젝타일, 이펙트 생성/파괴가 자주 일어날 것 오브젝트 폴링 고려
             Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
         }
 

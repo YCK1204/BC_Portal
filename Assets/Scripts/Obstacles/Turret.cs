@@ -8,6 +8,7 @@ public class Turret : ObstacleBase
     [SerializeField] private Transform turretBase; // 고정대
     [SerializeField] private Transform turretHead; // 본체
 
+    // 파라미터를 SerializeField 로 만들어 외부에서 설정/테스트 가능 - 코드작업 리소스가 줄고 기획 및 테스터가 조정가능함 
     [Header("Turret Settings")]
     [SerializeField] private float rotationSpeed; // 터렛 회전 속도
     [SerializeField] private float idleRotationSpeed; // 터렛 대기 상태 회전 속도
@@ -39,6 +40,7 @@ public class Turret : ObstacleBase
     public override void Activate() //터렛 On
     {
         base.Activate();
+        // 문자열 사용 주의 nameof 고려
         InvokeRepeating("FindTarget", 0, 0.5f);
     }
 

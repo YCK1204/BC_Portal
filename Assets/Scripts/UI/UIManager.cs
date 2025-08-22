@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class UIManager : Singleton<UIManager>
 {
+    // 매니저 보다는 UIPause, UISetting 의 역할
     [Header("UI")]
     public Animator MenuAnimator;
 

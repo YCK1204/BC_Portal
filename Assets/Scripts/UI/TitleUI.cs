@@ -57,6 +57,7 @@ public class TitleUI : MonoBehaviour
         }
     }
 
+    // 코드조작보다 애니메이션, 타임라인 등 활용하는게 좋을듯합니다
     IEnumerator GameStart()
     {
         AudioManager.Instance.PlaySFX("Button");
@@ -97,6 +98,7 @@ public class TitleUI : MonoBehaviour
     public void OnClickContinue()
     {
         //최근 세이브로 게임 시작
+        // 키값 문자열 주의
         introAnimator.SetBool("LOAD_GAME", true);
         StartCoroutine(LoadStart());
     }

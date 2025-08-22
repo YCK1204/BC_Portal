@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LaserPointer : ObstacleBase
 {
@@ -28,8 +29,9 @@ public class LaserPointer : ObstacleBase
         LaserHit();
     }
 
+    // 델리게이터 활용 굉장히 좋다
     // 콜백으로 ray에 뭔가 맞았을때는 onHit, 맞지 않았을때는 onMiss 콜백 실행
-    private void ShootLaser(Vector3 direction, float distance, System.Action<RaycastHit> onHit = null, System.Action onMiss = null)
+    private void ShootLaser(Vector3 direction, float distance, Action<RaycastHit> onHit = null, Action onMiss = null)
     {
         ray = new Ray(startPoint.position, direction);
         Vector3 _endPoint = startPoint.position + direction * distance;

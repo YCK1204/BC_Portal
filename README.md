@@ -33,11 +33,11 @@
 
 ## ⚡ 주요 기능
 
-### 🌀 포털 시스템
-두 개의 연결된 포털을 생성하여 공간 간 순간이동이 가능합니다.
+### 🌀 포탈 시스템
+두 개의 연결된 포탈을 생성하여 공간 간 순간이동이 가능합니다.
 
-<!-- 포털 시스템 GIF 자리 -->
-![포털 시스템](이미지_경로)
+![4](https://github.com/user-attachments/assets/af0504af-e3aa-4c9e-9c3d-c2df973337c2)
+
 
 **핵심 기술**:
 - Render Texture를 활용한 포털 뷰 렌더링
@@ -47,8 +47,8 @@
 ### 🎯 퍼즐 해결 시스템
 다양한 상호작용 요소를 활용한 물리 기반 퍼즐을 제공합니다.
 
-<!-- 퍼즐 해결 GIF 자리 -->
-![퍼즐 해결](이미지_경로)
+![3](https://github.com/user-attachments/assets/e83908d4-d50f-4019-b5ae-4894458fa9a3)
+
 
 **구현 요소**:
 - 버튼, 스위치, 압력판 시스템
@@ -58,8 +58,8 @@
 ### 🚨 장애물 & 위험 요소
 플레이어의 도전을 높이는 다양한 장애물이 구현되어 있습니다.
 
-<!-- 장애물 시스템 GIF 자리 -->
-![장애물 시스템](이미지_경로)
+![5](https://github.com/user-attachments/assets/ca6f5ca1-27e0-4bf4-8e14-fe34f7c0a981)
+
 
 **장애물 종류**:
 - AI 기반 자동 추적 터렛
@@ -132,7 +132,7 @@ Assets/
       <br/>
       <b>팀장 [정진규]</b>
       <br/>
-      <sub>포털 시스템 & 아키텍처</sub>
+      <sub>포탈 시스템 & 저장 시스템</sub>
       <br/>
       <a href="https://github.com/Hira7388">
         <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/>
@@ -142,7 +142,7 @@ Assets/
       <br/>
       <b>팀원 [오승엽]</b>
       <br/>
-      <sub>플레이어 시스템 & UI</sub>
+      <sub>장애물 시스템 & 사운드</sub>
       <br/>
       <a href="https://github.com/Cae1umBlue">
         <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/>
@@ -152,7 +152,7 @@ Assets/
       <br/>
       <b>팀원 [최우영]</b>
       <br/>
-      <sub>장애물 시스템 & AI</sub>
+      <sub>게임 디자인 & UI</sub>
       <br/>
       <a href="https://github.com/wooyoung-1">
         <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/>
@@ -162,7 +162,7 @@ Assets/
       <br/>
       <b>팀원 [심재환]</b>
       <br/>
-      <sub>퍼즐 시스템 & 사운드</sub>
+      <sub>플레이어</sub>
       <br/>
       <a href="https://github.com/smjawhn">
         <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/>
@@ -172,7 +172,7 @@ Assets/
       <br/>
       <b>팀원 [김예찬]</b>
       <br/>
-      <sub>퍼즐 시스템 & 사운드</sub>
+      <sub>퍼즐 시스템</sub>
       <br/>
       <a href="https://github.com/YCK1204">
         <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white"/>

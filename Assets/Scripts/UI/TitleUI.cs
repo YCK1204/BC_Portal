@@ -68,6 +68,7 @@ public class TitleUI : MonoBehaviour
         playerInput.enabled = true;
         StageManager.Instance.RespawnPlayer(player);
         yield return new WaitForSeconds(1f);
+        AudioManager.Instance.PlaySFX("Robot_on2");
         hpgauge.SetActive(true);
         yield return new WaitForSeconds(1f);
         player.SetActive(true);
